@@ -51,14 +51,14 @@
     "url": "git@github.com:luckqin/luckqin.cn.git"
   },
   "scripts": {
-    "build": "gatsby build",
+    "build": "rm -rf public && rm -rf .cache && gatsby build",
     "develop": "gatsby develop",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx,.vue .",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "deploy": "npm run gh-pages",
-    "gh-pages": "gh-pages -d public -b gh-pages"
+    "gh-pages": "yarn build && gh-pages -d public -b gh-pages"
   },
   "husky": {
     "hooks": {
