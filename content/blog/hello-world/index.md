@@ -4,6 +4,29 @@ date: "2015-05-01T22:12:03.284Z"
 description: "Hello World"
 ---
 
+```tsx
+interface IPortalProps {
+  visible: boolean;
+  children: React.ReactNode;
+}
+
+export function Portal(props: IPortalProps) {
+  const { children, visible } = props;
+  const node = useMemo(() => document.createElement('div'), []);
+  const parent = useMemo(() => document.querySelector('body'), []);
+
+  return (
+    visible &&
+    node && (
+      <PurePortal selector={node}>
+        <MountElement parent={parent} node={node} />
+        {children}
+      </PurePortal>
+    )
+  );
+}
+```
+
 This is my first post on my new fake blog! How exciting!
 
 I'm sure I'll write a lot more interesting things in the future.
