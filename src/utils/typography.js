@@ -40,10 +40,16 @@ Anonymous.overrideThemeStyles = () => ({
     fontSize: '2.5rem',
   },
   h2: {
-    fontSize: '1.73286rem',
+    fontSize: '1.7328rem',
   },
   h3: {
     fontSize: '1.4427rem',
+  },
+  h4: {
+    fontSize: '1.2368rem',
+  },
+  h5: {
+    fontSize: '1.0345rem',
   },
 });
 

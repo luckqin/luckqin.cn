@@ -2,8 +2,32 @@
   "name": "gatsby-starter-blog",
   "private": true,
   "description": "A personal blog powered by Gatsby and Markdown",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": "qin <2508582642@qq.com>",
+  "homepage": "http://luckqin.cn",
+  "license": "0BSD",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:luckqin/luckqin.cn.git"
+  },
+  "scripts": {
+    "build": "rm -rf public && rm -rf .cache && gatsby build",
+    "develop": "gatsby develop",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx,.vue .",
+    "start": "npm run develop",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "deploy": "npm run gh-pages",
+    "gh-pages": "yarn build && gh-pages -d public -b gh-pages"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx,vue}": "eslint"
+  },
   "dependencies": {
     "gatsby": "^2.26.1",
     "gatsby-image": "^2.5.0",
@@ -39,33 +63,5 @@
     "prettier": "2.1.2",
     "prettier-config-fespsp": "^0.0.4",
     "typescript": "^4.1.2"
-  },
-  "homepage": "http://luckqin.cn",
-  "keywords": [
-    "gatsby"
-  ],
-  "license": "0BSD",
-  "main": "n/a",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:luckqin/luckqin.cn.git"
-  },
-  "scripts": {
-    "build": "rm -rf public && rm -rf .cache && gatsby build",
-    "develop": "gatsby develop",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx,.vue .",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "deploy": "npm run gh-pages",
-    "gh-pages": "yarn build && gh-pages -d public -b gh-pages"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "**/*.{js,jsx,ts,tsx,vue}": "eslint"
   }
 }
