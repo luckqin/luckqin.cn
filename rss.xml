@@ -1,4 +1,70 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[xyq's Blog]]></title><description><![CDATA[A starter blog demonstrating what Gatsby can do.]]></description><link>http://luckqin.cn</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 11 Dec 2020 07:17:31 GMT</lastBuildDate><item><title><![CDATA[New Beginnings]]></title><description><![CDATA[Far far away, behind the word mountains, far from the countries Vokalia and
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Qin Blog]]></title><description><![CDATA[A starter blog demonstrating what Gatsby can do.]]></description><link>http://luckqin.cn</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 27 Jan 2021 11:42:16 GMT</lastBuildDate><item><title><![CDATA[Nginx]]></title><description><![CDATA[NGINX is a free, open-source, high-performance HTTP server and reverse proxy, as well as an IMAP/POP3 proxy server. NGINX is known for its…]]></description><link>http://luckqin.cn/nginx/</link><guid isPermaLink="false">http://luckqin.cn/nginx/</guid><pubDate>Wed, 27 Jan 2021 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;NGINX is a free, open-source, high-performance HTTP server and reverse proxy, as well as an IMAP/POP3 proxy server. NGINX is known for its high performance, stability, rich feature set, simple configuration, and low resource consumption.&lt;/p&gt;
+&lt;h3&gt;编译 Nginx&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;在 &lt;a href=&quot;http://nginx.org/en/download.html&quot;&gt;Nginx Download&lt;/a&gt; 选择合适的版本，拷贝下载链接并进行安装：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;wget&lt;/span&gt; http://nginx.org/download/nginx-1.18.0.tar.gz
+&lt;span class=&quot;token function&quot;&gt;tar&lt;/span&gt; -xzf nginx-1.18.0.tar.gz
+&lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; nginx-1.18.0
+&lt;span class=&quot;token function&quot;&gt;cp&lt;/span&gt; -r contrib/vim/* ~/.vim/&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;配置&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;configure 是一些编译配置项，可以使用 &lt;code class=&quot;language-text&quot;&gt;help&lt;/code&gt; 命令查看有哪些配置选项。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;./configure --help ｜ &lt;span class=&quot;token function&quot;&gt;more&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;configure 配置项大概分为三类&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;--with-xxx-module&lt;/code&gt; 表示原本没有的模块，需要主动添加到 nginx 中&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;--without-xxx-module&lt;/code&gt; 表示原本已有这个模块，需要移除&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;--prefix&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;--with-cc&lt;/code&gt; 等其他配置项&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;编译前的检查和配置&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# 编译 nginx 需要的前置依赖&lt;/span&gt;
+yum -y &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; gcc gcc-c++
+yum -y &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;make&lt;/span&gt;
+yum -y &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; pcre-devel
+yum -y &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; zlib-devel
+
+./configure --prefix&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;/home/nginx&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;完成配置之后，若没有报错，会生成 &lt;code class=&quot;language-text&quot;&gt;objs&lt;/code&gt; 中间文件夹。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; objs
+&lt;span class=&quot;token function&quot;&gt;cat&lt;/span&gt; ngx_modules.c &lt;span class=&quot;token comment&quot;&gt;# 查看接下来编译时，有哪些模块会被编译进 nginx&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;开始编译&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;make&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;make&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;开启 Nginx&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; /home/nginx/sbin
+./nginx&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;此时，Nginx 已经被成功开启，可以通过以下命令查看 Nginx 进程。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;ps&lt;/span&gt; -ef &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;grep&lt;/span&gt; nginx&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;重载 Nginx&lt;/h3&gt;
+&lt;p&gt;修改配置文件内容。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; path/to/nginx
+&lt;span class=&quot;token function&quot;&gt;vim&lt;/span&gt; conf/nginx.conf&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;重载。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;./sbin/nginx -s reload&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;升级 Nginx&lt;/h3&gt;
+&lt;p&gt;把新编译出来的 nginx 二进制文件（sbin/nginx）替换调旧的进程正在使用的 nginx 二进制文件。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;mv&lt;/span&gt; /path/to/new/nginx ./.sbin/nginx&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;停用当前进程并启用新进程（平滑地升级）。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;kill&lt;/span&gt; -USR2 &lt;span class=&quot;token variable&quot;&gt;&lt;span class=&quot;token variable&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;cat&lt;/span&gt; path/to/nginx/logs/nginx.pid&lt;span class=&quot;token variable&quot;&gt;`&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;ps&lt;/span&gt; -ef &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;grep&lt;/span&gt; nginx&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;此时，可以看到新老 nginx 进程都在运行，但老 nginx 的 worker 进程已经不再监听 80 端口了。&lt;/p&gt;
+&lt;p&gt;优雅地关闭老进程。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;kill&lt;/span&gt; -WINCH &lt;span class=&quot;token variable&quot;&gt;&lt;span class=&quot;token variable&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;cat&lt;/span&gt; path/to/nginx/logs/nginx.pid.oldbin&lt;span class=&quot;token variable&quot;&gt;`&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;ps&lt;/span&gt; -ef &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;grep&lt;/span&gt; nginx&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;此时，老的 worker 进程被关闭了，但 master 进程还在，为了方便做版本回退。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果使用 &lt;code class=&quot;language-text&quot;&gt;kill -QUIT&lt;/code&gt; 就可以把 master 进程关闭。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;日志切割&lt;/h3&gt;
+&lt;p&gt;通过重启 nginx 形成新日志来实现。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; path/to/nginx/logs
+&lt;span class=&quot;token function&quot;&gt;mv&lt;/span&gt; access.log access-bak.log
+&lt;span class=&quot;token punctuation&quot;&gt;..&lt;/span&gt;/sbin/nginx -s reopen&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;这三行命令可以使用 &lt;code class=&quot;language-text&quot;&gt;crontab&lt;/code&gt; 定时执行脚本来实现。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[New Beginnings]]></title><description><![CDATA[Far far away, behind the word mountains, far from the countries Vokalia and
 Consonantia, there live the blind texts. Separated they live in…]]></description><link>http://luckqin.cn/new-brginnings/</link><guid isPermaLink="false">http://luckqin.cn/new-brginnings/</guid><pubDate>Fri, 11 Dec 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Far far away, behind the word mountains, far from the countries Vokalia and
 Consonantia, there live the blind texts. Separated they live in Bookmarksgrove
 right at the coast of the Semantics, a large language ocean. A small river named
