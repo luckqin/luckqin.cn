@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `xyq's Blog`,
+    title: `Qin Blog`,
     author: {
       name: `qin`,
       summary: `who is a humble front-end development engineer lives and works in Hangzhou, China.`,
@@ -60,7 +60,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `xyq's Blog`,
+        name: `Qin Blog`,
         short_name: `GatsbyJS`,
         start_url: `/`,
         background_color: `#ffffff`,

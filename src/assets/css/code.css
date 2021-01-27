@@ -1,6 +1,7 @@
 code[class*='language-'],
 pre[class*='language-'] {
   color: white;
+  font-size: 0.9375rem;
   background: none;
   font-family: 'dm', monospace;
   font-feature-settings: normal;

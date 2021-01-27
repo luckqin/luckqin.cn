@@ -9,3 +9,7 @@ body {
 ol {
   list-style-position: inside;
 }
+
+blockquote {
+  font-size: 1rem;
+}
