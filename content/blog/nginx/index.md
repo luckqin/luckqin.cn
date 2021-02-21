@@ -124,3 +124,25 @@ mv access.log access-bak.log
 ```
 
 这三行命令可以使用 `crontab` 定时执行脚本来实现。
+
+```shell
+#!/bin/bash
+NGINX_PATH=/home/nginx
+LOGS_PATH=${NGINX_PATH}/logs
+HISTORY_LOGS_PATH=${NGINX_PATH}/logs/history
+PID_PATH=${LOGS_PATH}/nginx.pid
+YESTERDAY=$(date -d "yesterday" +%Y-%m-%d)
+mv ${LOGS_PATH}/access.log ${HISTORY_LOGS_PATH}/access_${YESTERDAY}.log
+mv ${LOGS_PATH}/error.log ${HISTORY_LOGS_PATH}/error_${YESTERDAY}.log
+kill -USR1 `cat ${PID_PATH}`
+```
+
+将以上脚本写入 path/to/nginx/shell 中
+
+```shell
+crontab -e
+// 写入
+0 0 1 * * root /home/nginx/shell/rotate-logs.sh
+// 重启服务
+/sbin/service crond reload
+```
