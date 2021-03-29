@@ -1,7 +1,7 @@
 ---
 title: Nginx
 date: '2021-01-27'
-description: Nginx 学习记录，常用配置和命令。
+description: Nginx 基本操作（安装、启动、升级...）。
 ---
 
 NGINX is a free, open-source, high-performance HTTP server and reverse proxy, as well as an IMAP/POP3 proxy server. NGINX is known for its high performance, stability, rich feature set, simple configuration, and low resource consumption.
@@ -25,13 +25,13 @@ configure 是一些编译配置项，可以使用 `help` 命令查看有哪些�
 ./configure --help ｜ more
 ```
 
-configure 配置项大概分为三类
+configure 配置项大概分为三类：
 
 - `--with-xxx-module` 表示原本没有的模块，需要主动添加到 nginx 中
 - `--without-xxx-module` 表示原本已有这个模块，需要移除
 - `--prefix`, `--with-cc` 等其他配置项
 
-编译前的检查和配置
+编译前的检查和配置。
 
 ```shell
 # 编译 nginx 需要的前置依赖
@@ -137,7 +137,7 @@ mv ${LOGS_PATH}/error.log ${HISTORY_LOGS_PATH}/error_${YESTERDAY}.log
 kill -USR1 `cat ${PID_PATH}`
 ```
 
-将以上脚本写入 path/to/nginx/shell 中
+将以上脚本写入 path/to/nginx/shell 中。
 
 ```shell
 crontab -e
