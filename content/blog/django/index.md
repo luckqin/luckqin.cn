@@ -10,7 +10,7 @@ Django 是一个由 Python 编写的一个开放源代码的 Web 应用框架。
 
 ## 本地开发篇
 
-### 1. 环境搭建
+### 环境搭建
 
 > 安装过程在 mac 系统下进行。
 
@@ -41,8 +41,6 @@ mkvirtualenv -p python3.9 django-demo
 workon django-demo
 ```
 
-### 2. 安装依赖
-
 安装 Django 并使用相关命令初始化一个 Django 项目。
 
 > Django == 3.1.7
@@ -58,7 +56,7 @@ django-admin startproject django_demo
 python manage.py runserver
 ```
 
-### 3. 调整项目结构
+### 调整项目结构
 
 初始项目结构很难满足复杂项目的需求，需要对目录结构进行改造。
 
@@ -80,9 +78,9 @@ python manage.py runserver
 - **run.sh** 本地操作项目相关命令。
 - **run.sh** 服务器操作项目相关命令。
 
-#### main/settings
+#### 修改项目配置
 
-settings 目录的结构如下。
+main/settings 目录的结构如下。
 
 <img src="./images/settings.png" alt="settings" />
 <br />
@@ -216,7 +214,7 @@ DATABASES = {
 }
 ```
 
-##### main/settings/prod.py
+**main/settings/prod.py**
 
 ```py
 from .base import *
@@ -284,11 +282,11 @@ chmod +x ./run.sh
 ./run.sh
 ```
 
-### 4. 部署
+## 部署篇
 
 本地跑起来没啥问题了，就可以将项应用部署到服务器上了。
 
-#### 本地操作
+### 本地操作
 
 编写 circus 配置文件。
 
@@ -349,7 +347,7 @@ pip freeze > requirements.txt
 git push ...
 ```
 
-#### 服务器操作
+### 服务器操作
 
 远程登录服务器，下载代码。
 
@@ -368,7 +366,7 @@ python3.9 -m pip install -r requirements.txt
 python3.9 -m pip install uvicorn circus
 ```
 
-##### 配置 Nginx
+#### 配置 Nginx
 
 创建 django_demo 的专属配置，并在 `nginx.conf` 中导入该配置。
 
@@ -411,7 +409,7 @@ server {
 }
 ```
 
-##### 运行项目
+#### 运行项目
 
 在服务未运行时启动（一般都是服务已经在跑了，有改动后只需要 circusctl restart 就行）。
 
