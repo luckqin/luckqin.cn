@@ -1,4 +1,349 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Qin Blog]]></title><description><![CDATA[A starter blog demonstrating what Gatsby can do.]]></description><link>http://luckqin.cn</link><generator>GatsbyJS</generator><lastBuildDate>Sun, 21 Feb 2021 06:05:07 GMT</lastBuildDate><item><title><![CDATA[Nginx]]></title><description><![CDATA[NGINX is a free, open-source, high-performance HTTP server and reverse proxy, as well as an IMAP/POP3 proxy server. NGINX is known for its…]]></description><link>http://luckqin.cn/nginx/</link><guid isPermaLink="false">http://luckqin.cn/nginx/</guid><pubDate>Wed, 27 Jan 2021 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;NGINX is a free, open-source, high-performance HTTP server and reverse proxy, as well as an IMAP/POP3 proxy server. NGINX is known for its high performance, stability, rich feature set, simple configuration, and low resource consumption.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Qin Blog]]></title><description><![CDATA[A starter blog demonstrating what Gatsby can do.]]></description><link>http://luckqin.cn</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 29 Mar 2021 06:18:45 GMT</lastBuildDate><item><title><![CDATA[Django -- 用户模块]]></title><link>http://luckqin.cn/django-user/</link><guid isPermaLink="false">http://luckqin.cn/django-user/</guid><pubDate>Sun, 28 Mar 2021 00:00:00 GMT</pubDate><content:encoded></content:encoded></item><item><title><![CDATA[Django -- 用户模块]]></title><description><![CDATA[Django 是一个由 Python 编写的一个开放源代码的 Web 应用框架。 使用 Django，只要很少的代码，Python 的程序开发人员就可以轻松地完成一个正式网站所需要的大部分内容，并进一步开发出全功能的 Web 服务 Django 本身基于 MVC…]]></description><link>http://luckqin.cn/django/</link><guid isPermaLink="false">http://luckqin.cn/django/</guid><pubDate>Sun, 28 Mar 2021 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Django 是一个由 Python 编写的一个开放源代码的 Web 应用框架。&lt;/p&gt;
+&lt;p&gt;使用 Django，只要很少的代码，Python 的程序开发人员就可以轻松地完成一个正式网站所需要的大部分内容，并进一步开发出全功能的 Web 服务 Django 本身基于 MVC 模型，即 Model（模型）+ View（视图）+ Controller（控制器）设计模式，MVC 模式使后续对程序的修改和扩展简化，并且使程序某一部分的重复利用成为可能。&lt;/p&gt;
+&lt;h2&gt;本地开发篇&lt;/h2&gt;
+&lt;h3&gt;1. 环境搭建&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;安装过程在 mac 系统下进行。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;本地安装 &lt;a href=&quot;https://www.python.org/ftp/python/3.9.2/python-3.9.2-macosx10.9.pkg&quot;&gt;python 3.9&lt;/a&gt;，一路下一步直到安装完成。&lt;/p&gt;
+&lt;p&gt;创建虚拟环境。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;python3.9 -m pip &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; --upgrade pip
+python3.9 -m pip &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; virtualenv
+python3.9 -m pip &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; virtualenvwrapper
+
+&lt;span class=&quot;token comment&quot;&gt;# 找到 virtualenvwrapper 和 python3.9 的路径&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;which&lt;/span&gt; virtualenvwrapper.sh
+&lt;span class=&quot;token function&quot;&gt;which&lt;/span&gt; python3.9
+
+&lt;span class=&quot;token comment&quot;&gt;# 编辑 zshrc&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;vim&lt;/span&gt; ~/.zshrc
+&lt;span class=&quot;token comment&quot;&gt;# 加入以下内容&lt;/span&gt;
+&lt;span class=&quot;token builtin class-name&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token assign-left variable&quot;&gt;WORKON_HOME&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;~/.virtualenvs&apos;&lt;/span&gt;
+&lt;span class=&quot;token builtin class-name&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token assign-left variable&quot;&gt;VIRTUALENVWRAPPER_PYTHON&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;/Library/Frameworks/Python.framework/Versions/3.9/bin/python3.9&apos;&lt;/span&gt;
+&lt;span class=&quot;token builtin class-name&quot;&gt;source&lt;/span&gt; /Library/Frameworks/Python.framework/Versions/3.9/bin/virtualenvwrapper.sh
+
+&lt;span class=&quot;token builtin class-name&quot;&gt;source&lt;/span&gt; ～/.zshrc
+
+&lt;span class=&quot;token comment&quot;&gt;# 创建虚拟环境&lt;/span&gt;
+mkvirtualenv -p python3.9 django-demo
+workon django-demo&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;2. 安装依赖&lt;/h3&gt;
+&lt;p&gt;安装 Django 并使用相关命令初始化一个 Django 项目。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Django == 3.1.7&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;pip &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; django djangorestframework
+django-admin startproject django_demo&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;启动项目。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;python manage.py runserver&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;3. 调整项目结构&lt;/h3&gt;
+&lt;p&gt;初始项目结构很难满足复杂项目的需求，需要对目录结构进行改造。&lt;/p&gt;
+&lt;span class=&quot;gatsby-resp-image-wrapper&quot; style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 454px; margin: 0;&quot;&gt;
+      &lt;span class=&quot;gatsby-resp-image-background-image&quot; style=&quot;padding-bottom: 108.22784810126582%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAWCAYAAADAQbwGAAAACXBIWXMAABYlAAAWJQFJUiTwAAACEUlEQVQ4y52VSY+bQBCF5xopt4ltdgzYrMbszY7Ho0iJcpkoSqRcc8j//wlvqluKZWekBHNoEAY+1+t6r3jY6CZMy8HvJMfIGuRNB9PZY63qkOjeRjPE+X/rz3MP/KAT8PP4BFZVaMcTDHuHlaJdHpoDvQEatgN//AiXTShZDdsLoG5tsa6h/wJfgFyyrCiQijPs6RmuuwfrBtRdD9Z20Kj6uyrkQI3v13CG8uUb2rpBM0woaD/v2ccbyRtZg5kXCM8t/CBCUbc4pLmQfg2dJVkyTHwg4C4O0A4uvDBGWlaIkhRBnFyA8ysk4ErWCehheApR1j360wl+fMSjpMyq7o1kDnTiEPUY4kB+zKnTluvNru4GKHPJkg6bJA/PEZKce3FCeEywWgLkh7VqICt2ZJU9VdehIruExxTrmSn5aw+3lBQbv3646IYadT8JuY+yujB6BORJ+V4cUGYpMvJfVjHI9PtiH/KXX1wZeXxAQ1mu+0FYZvFw4BeZHyCIYgErmxZJUYk/WgSU6OLd+BNe1aNijJLSCGMvlrxWTXw9vUdRxlQZQ0UV8k7rNMbmQm+NrW6RTTHy6kiggSI4Ctm26y+Inqhwi0+jiywNqcOtAGYlg3M1HO4aXwql5ewYSKMDErJMSB3mOZ47ad4OWFovkYWCbMO/KQVl2aGuL44eX7ZJHysyuOOHsPYeFNOabZlr4Cv9u2HpyvfwpQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;&gt;&lt;/span&gt;
+  &lt;img class=&quot;gatsby-resp-image-image&quot; alt=&quot;catalogue&quot; title=&quot;catalogue&quot; src=&quot;/static/5a18f369f39251cf891fd76ec439f637/b3c1d/catalogue.png&quot; srcset=&quot;/static/5a18f369f39251cf891fd76ec439f637/c26ae/catalogue.png 158w,
+/static/5a18f369f39251cf891fd76ec439f637/6bdcf/catalogue.png 315w,
+/static/5a18f369f39251cf891fd76ec439f637/b3c1d/catalogue.png 454w&quot; sizes=&quot;(max-width: 454px) 100vw, 454px&quot; style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/span&gt;
+&lt;br&gt;
+&lt;p&gt;按 Django 的说法，整个项目是一个大的 project，里面包含了若干应用。&lt;/p&gt;
+&lt;p&gt;但我更喜欢称整个项目为一个后台应用，比如 XX 产品的后台应用，而里面包含的若干应用我则称他们为应用中的模块。&lt;/p&gt;
+&lt;p&gt;其中：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;main:&lt;/strong&gt; 应用主模块，里面包含了应用设置、asgi、wsgi 和路由文件，是整个应用的入口。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;main/settings:&lt;/strong&gt; 项目配置，从原本的 &lt;code class=&quot;language-text&quot;&gt;settings.py&lt;/code&gt; 改成了 python 模块的形式，应对本地和服务器不同环境的配置。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;apps:&lt;/strong&gt; 应用中模块的集合。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;static:&lt;/strong&gt; 静态资源存放的位置。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;upload:&lt;/strong&gt; 上传文件存放的位置，文件上传一般在 admin 端的场景比较多。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;circus.ini:&lt;/strong&gt; circus 是一个进程管理工具，跑在服务器上，这个文件里写着它的配置。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;run.sh&lt;/strong&gt; 本地操作项目相关命令。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;run.sh&lt;/strong&gt; 服务器操作项目相关命令。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;main/settings&lt;/h4&gt;
+&lt;p&gt;settings 目录的结构如下。&lt;/p&gt;
+&lt;span class=&quot;gatsby-resp-image-wrapper&quot; style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 454px; margin: 0;&quot;&gt;
+      &lt;span class=&quot;gatsby-resp-image-background-image&quot; style=&quot;padding-bottom: 33.54430379746836%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAABYlAAAWJQFJUiTwAAAA+klEQVQoz5WR206DQBRF5xuMvQnDUEpL6QWKMNx7MZq+oTGN8f+/ZDnoB0gf1nnaOTlnLzGTChmEPHRf7HRF1bTkVcNiveFxZjFzXKYmM4SJ7SD6MZUuTntkn8dsdhG6qs3CEOn5jJ5sxpYcxMiyEd5yjfICEh1xvGyJk4K8bNBFTapL5NzH9QPcxT+YjPJWiKq6kOsz5+sbn7dXPt6/6bob12tHlrUUxWkwWdYgHPOWpXy2mbnwJeJZ1zSnM1GSYruLu7CUh+jLHFuK5WFDcQzZHzLyuibcx7+99B2PbTkMkxe9xYk9Zx2vqNuAOC0pjendIeFPmLrL8g93B8sMLUM0BwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;&gt;&lt;/span&gt;
+  &lt;img class=&quot;gatsby-resp-image-image&quot; alt=&quot;settings&quot; title=&quot;settings&quot; src=&quot;/static/c35022540a2a1d871d31f1e5268e7aac/b3c1d/settings.png&quot; srcset=&quot;/static/c35022540a2a1d871d31f1e5268e7aac/c26ae/settings.png 158w,
+/static/c35022540a2a1d871d31f1e5268e7aac/6bdcf/settings.png 315w,
+/static/c35022540a2a1d871d31f1e5268e7aac/b3c1d/settings.png 454w&quot; sizes=&quot;(max-width: 454px) 100vw, 454px&quot; style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/span&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;main/settings/base.py&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;py&quot;&gt;&lt;pre class=&quot;language-py&quot;&gt;&lt;code class=&quot;language-py&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; pathlib &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; Path
+
+&lt;span class=&quot;token triple-quoted-string string&quot;&gt;&apos;&apos;&apos;
+Base Settings
+&apos;&apos;&apos;&lt;/span&gt;
+BASE_DIR &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Path&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;__file__&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;resolve&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;parent&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;parent&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;parent
+SECRET_KEY &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;pn^36-v(tvw=52%&amp;amp;kqb+t9h4iwrwiiv#xsic+7#69y^_57%&amp;amp;nb&apos;&lt;/span&gt;
+WSGI_APPLICATION &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;main.wsgi.application&apos;&lt;/span&gt;
+ASGI_APPLICATION &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;main.asgi.application&apos;&lt;/span&gt;
+
+
+&lt;span class=&quot;token triple-quoted-string string&quot;&gt;&apos;&apos;&apos;
+Internationalization
+&apos;&apos;&apos;&lt;/span&gt;
+USE_TZ &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;
+USE_L10N &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;
+USE_I18N &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;
+FILE_CHARSET &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;utf-8&apos;&lt;/span&gt;
+DEFAULT_CHARSET &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;utf-8&apos;&lt;/span&gt;
+LANGUAGE_CODE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;zh-Hans&apos;&lt;/span&gt;
+TIME_ZONE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Asia/Shanghai&apos;&lt;/span&gt;
+
+
+&lt;span class=&quot;token triple-quoted-string string&quot;&gt;&apos;&apos;&apos;
+Security
+&apos;&apos;&apos;&lt;/span&gt;
+CORS_ALLOW_CREDENTIALS &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;
+CORS_ORIGIN_ALLOW_ALL &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;
+CORS_ALLOW_METHODS &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;DELETE&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;GET&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;OPTIONS&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;PATCH&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;POST&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;PUT&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;VIEW&apos;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+CORS_ALLOW_HEADERS &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;accept&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;accept-encoding&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;authorization&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;content-type&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;dnt&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;origin&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;user-agent&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;x-csrftoken&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;x-requested-with&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;idToken&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+ALLOWED_HOSTS &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;*&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+
+
+&lt;span class=&quot;token triple-quoted-string string&quot;&gt;&apos;&apos;&apos;
+Application definition
+&apos;&apos;&apos;&lt;/span&gt;
+INSTALLED_APPS &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;django.contrib.admin&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;django.contrib.auth&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;django.contrib.contenttypes&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;django.contrib.sessions&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;django.contrib.messages&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;django.contrib.staticfiles&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+
+MIDDLEWARE &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;django.middleware.security.SecurityMiddleware&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;django.contrib.sessions.middleware.SessionMiddleware&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;django.middleware.common.CommonMiddleware&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;django.middleware.csrf.CsrfViewMiddleware&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;django.contrib.auth.middleware.AuthenticationMiddleware&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;django.contrib.messages.middleware.MessageMiddleware&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;django.middleware.clickjacking.XFrameOptionsMiddleware&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+
+ROOT_URLCONF &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;main.urls&apos;&lt;/span&gt;
+
+TEMPLATES &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token string&quot;&gt;&apos;BACKEND&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;django.template.backends.django.DjangoTemplates&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token string&quot;&gt;&apos;DIRS&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;BASE_DIR &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;templates&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token string&quot;&gt;&apos;APP_DIRS&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token string&quot;&gt;&apos;OPTIONS&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;token string&quot;&gt;&apos;context_processors&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+                &lt;span class=&quot;token string&quot;&gt;&apos;django.template.context_processors.debug&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;token string&quot;&gt;&apos;django.template.context_processors.request&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;token string&quot;&gt;&apos;django.contrib.auth.context_processors.auth&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;token string&quot;&gt;&apos;django.contrib.messages.context_processors.messages&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;main/settings/local.py&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;py&quot;&gt;&lt;pre class=&quot;language-py&quot;&gt;&lt;code class=&quot;language-py&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;base &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;
+
+
+&lt;span class=&quot;token triple-quoted-string string&quot;&gt;&apos;&apos;&apos;
+Base Settings
+&apos;&apos;&apos;&lt;/span&gt;
+DEBUG &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;
+
+
+&lt;span class=&quot;token triple-quoted-string string&quot;&gt;&apos;&apos;&apos;
+Static and media files
+&apos;&apos;&apos;&lt;/span&gt;
+STATIC_ROOT &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; BASE_DIR &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;static&apos;&lt;/span&gt;
+MEDIA_ROOT &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; BASE_DIR &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;upload&apos;&lt;/span&gt;
+STATIC_URL &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;/static/&apos;&lt;/span&gt;
+MEDIA_URL &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;/media/&apos;&lt;/span&gt;
+
+
+&lt;span class=&quot;token triple-quoted-string string&quot;&gt;&apos;&apos;&apos;
+Database
+&apos;&apos;&apos;&lt;/span&gt;
+DATABASES &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;default&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token string&quot;&gt;&apos;ENGINE&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;django.db.backends.sqlite3&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token string&quot;&gt;&apos;NAME&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; BASE_DIR &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;db.sqlite3&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h5&gt;main/settings/prod.py&lt;/h5&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;py&quot;&gt;&lt;pre class=&quot;language-py&quot;&gt;&lt;code class=&quot;language-py&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;base &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;
+
+
+&lt;span class=&quot;token triple-quoted-string string&quot;&gt;&apos;&apos;&apos;
+Base Settings
+&apos;&apos;&apos;&lt;/span&gt;
+DEBUG &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;False&lt;/span&gt;
+
+
+&lt;span class=&quot;token triple-quoted-string string&quot;&gt;&apos;&apos;&apos;
+Static and media files
+&apos;&apos;&apos;&lt;/span&gt;
+STATIC_ROOT &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;/data/django_demo/static&apos;&lt;/span&gt;
+MEDIA_ROOT &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;/data/django_demo/upload&apos;&lt;/span&gt;
+STATIC_URL &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;/static/django_demo/&apos;&lt;/span&gt;
+MEDIA_URL &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;/media/django_demo/&apos;&lt;/span&gt;
+
+
+&lt;span class=&quot;token triple-quoted-string string&quot;&gt;&apos;&apos;&apos;
+Database
+&apos;&apos;&apos;&lt;/span&gt;
+DATABASES &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;default&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token string&quot;&gt;&apos;ENGINE&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;django.db.backends.sqlite3&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token string&quot;&gt;&apos;NAME&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;/data/django_demo/db.sqlite3&apos;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;这里可以看到本地调试的配置和生产环境的配置是不同的，具体的不同在于数据库、静态资源、上传资源位置不同。&lt;/p&gt;
+&lt;h4&gt;跑起来自带 Admin 后台管理系统&lt;/h4&gt;
+&lt;p&gt;首先要编写 &lt;code class=&quot;language-text&quot;&gt;run.sh&lt;/code&gt; 脚本，方便运行前设置一些环境变量。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;run.sh&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token assign-left variable&quot;&gt;MODE&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token variable&quot;&gt;$1&lt;/span&gt;
+
+&lt;span class=&quot;token builtin class-name&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token assign-left variable&quot;&gt;DJANGO_SETTINGS_MODULE&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;main.settings.local
+
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;token variable&quot;&gt;$MODE&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;makemigrations&apos;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
+    python manage.py makemigrations
+&lt;span class=&quot;token keyword&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;token variable&quot;&gt;$MODE&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;migrate&apos;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
+    python manage.py migrate
+&lt;span class=&quot;token keyword&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;token variable&quot;&gt;$MODE&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;collectstatic&apos;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
+    python manage.py collectstatic
+&lt;span class=&quot;token keyword&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;token variable&quot;&gt;$MODE&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;createsuperuser&apos;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
+    python manage.py createsuperuser
+&lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;
+    python manage.py runserver &lt;span class=&quot;token number&quot;&gt;0.0&lt;/span&gt;.0.0:8000
+&lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;执行以下命令后就可以登录 Django 自带的 admin 后台看看了。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;chmod&lt;/span&gt; +x ./run.sh
+./run.sh migrate
+./run.sh collectstatic
+./run.sh createsuperuser
+./run.sh&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;4. 部署&lt;/h3&gt;
+&lt;p&gt;本地跑起来没啥问题了，就可以将项应用部署到服务器上了。&lt;/p&gt;
+&lt;h4&gt;本地操作&lt;/h4&gt;
+&lt;p&gt;编写 circus 配置文件。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;circus.ini&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;ini&quot;&gt;&lt;pre class=&quot;language-ini&quot;&gt;&lt;code class=&quot;language-ini&quot;&gt;&lt;span class=&quot;token selector&quot;&gt;[circus]&lt;/span&gt;
+&lt;span class=&quot;token constant&quot;&gt;check_delay&lt;/span&gt; &lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt; 5&lt;/span&gt;
+&lt;span class=&quot;token constant&quot;&gt;endpoint&lt;/span&gt; &lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt; tcp://127.0.0.1:5555&lt;/span&gt;
+&lt;span class=&quot;token constant&quot;&gt;pubsub_endpoint&lt;/span&gt; &lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt; tcp://127.0.0.1:5556&lt;/span&gt;
+&lt;span class=&quot;token constant&quot;&gt;statsd&lt;/span&gt; &lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt; true&lt;/span&gt;
+&lt;span class=&quot;token selector&quot;&gt;[env:web]&lt;/span&gt;
+&lt;span class=&quot;token constant&quot;&gt;LC_ALL&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;en_US.UTF-8&lt;/span&gt;
+&lt;span class=&quot;token constant&quot;&gt;LANG&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;en_US.UTF-8&lt;/span&gt;
+&lt;span class=&quot;token constant&quot;&gt;DJANGO_SETTINGS_MODUL&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;django_demo.settings.prod&lt;/span&gt;
+&lt;span class=&quot;token selector&quot;&gt;[watcher:web]&lt;/span&gt;
+&lt;span class=&quot;token constant&quot;&gt;working_dir&lt;/span&gt; &lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt; /opt/django_demo&lt;/span&gt;
+&lt;span class=&quot;token constant&quot;&gt;cmd&lt;/span&gt; &lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt; /usr/local/bin/uvicorn --fd $(circus.sockets.web) django_demo.asgi:application&lt;/span&gt;
+&lt;span class=&quot;token constant&quot;&gt;use_sockets&lt;/span&gt; &lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt; True&lt;/span&gt;
+&lt;span class=&quot;token constant&quot;&gt;copy_env&lt;/span&gt; &lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt; True&lt;/span&gt;
+&lt;span class=&quot;token constant&quot;&gt;numprocesses&lt;/span&gt; &lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt; 3&lt;/span&gt;
+&lt;span class=&quot;token constant&quot;&gt;autostart&lt;/span&gt; &lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt; True&lt;/span&gt;
+&lt;span class=&quot;token constant&quot;&gt;stdout_stream.class&lt;/span&gt; &lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt; FileStream&lt;/span&gt;
+&lt;span class=&quot;token constant&quot;&gt;stdout_stream.filename&lt;/span&gt; &lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt; /data/django_demo/logs/deploy.log&lt;/span&gt;
+&lt;span class=&quot;token constant&quot;&gt;stdout_stream.max_bytes&lt;/span&gt; &lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt; 10485760&lt;/span&gt;
+&lt;span class=&quot;token constant&quot;&gt;stdout_stream.backup_count&lt;/span&gt; &lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt; 4&lt;/span&gt;
+&lt;span class=&quot;token selector&quot;&gt;[socket:web]&lt;/span&gt;
+&lt;span class=&quot;token constant&quot;&gt;host&lt;/span&gt; &lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt; 127.0.0.1&lt;/span&gt;
+&lt;span class=&quot;token constant&quot;&gt;port&lt;/span&gt; &lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt; 8000&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;编写 &lt;code class=&quot;language-text&quot;&gt;runp.sh&lt;/code&gt; 文件。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;runp.sh&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token assign-left variable&quot;&gt;MODE&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token variable&quot;&gt;$1&lt;/span&gt;
+
+&lt;span class=&quot;token builtin class-name&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token assign-left variable&quot;&gt;DJANGO_SETTINGS_MODULE&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;main.settings.prod
+
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;token variable&quot;&gt;$MODE&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;makemigrations&apos;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
+    python3.9 manage.py makemigrations
+&lt;span class=&quot;token keyword&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;token variable&quot;&gt;$MODE&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;migrate&apos;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
+    python3.9 manage.py migrate
+&lt;span class=&quot;token keyword&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;token variable&quot;&gt;$MODE&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;collectstatic&apos;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
+    python3.9 manage.py collectstatic
+&lt;span class=&quot;token keyword&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;token variable&quot;&gt;$MODE&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;createsuperuser&apos;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
+    python3.9 manage.py createsuperuser
+&lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;
+    python3.9 manage.py runserver &lt;span class=&quot;token number&quot;&gt;0.0&lt;/span&gt;.0.0:8000
+&lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;导出本地依赖，并上传至 Github。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;pip freeze &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; requirements.txt
+&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; push &lt;span class=&quot;token punctuation&quot;&gt;..&lt;/span&gt;.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;服务器操作&lt;/h4&gt;
+&lt;p&gt;远程登录服务器，下载代码。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; /opt
+&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; clone xxx/django_demo
+&lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; django_demo&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;在服务器中直接安装 python3.9，安装过程视具体操作系统而定。&lt;/p&gt;
+&lt;p&gt;安装 python 依赖。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;python3.9 -m pip &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; -r requirements.txt
+python3.9 -m pip &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; uvicorn circus&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h5&gt;配置 Nginx&lt;/h5&gt;
+&lt;p&gt;创建 django_demo 的专属配置，并在 &lt;code class=&quot;language-text&quot;&gt;nginx.conf&lt;/code&gt; 中导入该配置。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;django_demo.conf&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;conf&quot;&gt;&lt;pre class=&quot;language-conf&quot;&gt;&lt;code class=&quot;language-conf&quot;&gt;server {
+    listen         80;
+    server_name    localhost;
+    charset UTF-8;
+
+    client_max_body_size 2000m;
+    client_body_buffer_size 20m;
+    client_body_temp_path /tmp/nginx/client_body_temp;
+
+    location ^~ /ws {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection &amp;quot;upgrade&amp;quot;;
+    }
+
+    location ^~ /api {
+        proxy_pass http://127.0.0.1:8000;
+    }
+
+    location ^~ /django_demo {
+        proxy_pass http://127.0.0.1:8000;
+    }
+
+    location ^~ /static/ {
+        alias /data/django_demo/static/;
+        autoindex on;
+    }
+
+    location ^~ /media/ {
+        alias /data/django_demo/upload/;
+        autoindex on;
+    }
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h5&gt;运行项目&lt;/h5&gt;
+&lt;p&gt;在服务未运行时启动（一般都是服务已经在跑了，有改动后只需要 circusctl restart 就行）。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; -E &lt;span class=&quot;token function&quot;&gt;env&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;DJANGO_SETTINGS_MODULE=main.settings.prod&quot;&lt;/span&gt; circusd /opt/django_demo/circus.ini&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;如果它工作正常，你可以将其作为守护进程启动。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; -E &lt;span class=&quot;token function&quot;&gt;env&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;DJANGO_SETTINGS_MODULE=main.settings.prod&quot;&lt;/span&gt; circusd --daemon /opt/django_demo/circus.ini&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;重启/停止。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;circusctl restart/stop&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Django 其他操作。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;./runp makemigrations/migrate/collectstatic/createsuperuser&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[Nginx]]></title><description><![CDATA[NGINX is a free, open-source, high-performance HTTP server and reverse proxy, as well as an IMAP/POP3 proxy server. NGINX is known for its…]]></description><link>http://luckqin.cn/nginx/</link><guid isPermaLink="false">http://luckqin.cn/nginx/</guid><pubDate>Wed, 27 Jan 2021 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;NGINX is a free, open-source, high-performance HTTP server and reverse proxy, as well as an IMAP/POP3 proxy server. NGINX is known for its high performance, stability, rich feature set, simple configuration, and low resource consumption.&lt;/p&gt;
 &lt;h3&gt;编译 Nginx&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;在 &lt;a href=&quot;http://nginx.org/en/download.html&quot;&gt;Nginx Download&lt;/a&gt; 选择合适的版本，拷贝下载链接并进行安装：&lt;/li&gt;
@@ -12,13 +357,13 @@
 &lt;/ol&gt;
 &lt;p&gt;configure 是一些编译配置项，可以使用 &lt;code class=&quot;language-text&quot;&gt;help&lt;/code&gt; 命令查看有哪些配置选项。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;./configure --help ｜ &lt;span class=&quot;token function&quot;&gt;more&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;configure 配置项大概分为三类&lt;/p&gt;
+&lt;p&gt;configure 配置项大概分为三类：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;--with-xxx-module&lt;/code&gt; 表示原本没有的模块，需要主动添加到 nginx 中&lt;/li&gt;
 &lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;--without-xxx-module&lt;/code&gt; 表示原本已有这个模块，需要移除&lt;/li&gt;
 &lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;--prefix&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;--with-cc&lt;/code&gt; 等其他配置项&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;编译前的检查和配置&lt;/p&gt;
+&lt;p&gt;编译前的检查和配置。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# 编译 nginx 需要的前置依赖&lt;/span&gt;
 yum -y &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; gcc gcc-c++
 yum -y &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;make&lt;/span&gt;
@@ -74,7 +419,7 @@ yum -y &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; zlib-de
 &lt;span class=&quot;token function&quot;&gt;mv&lt;/span&gt; &lt;span class=&quot;token variable&quot;&gt;${LOGS_PATH}&lt;/span&gt;/access.log &lt;span class=&quot;token variable&quot;&gt;${HISTORY_LOGS_PATH}&lt;/span&gt;/access_&lt;span class=&quot;token variable&quot;&gt;${YESTERDAY}&lt;/span&gt;.log
 &lt;span class=&quot;token function&quot;&gt;mv&lt;/span&gt; &lt;span class=&quot;token variable&quot;&gt;${LOGS_PATH}&lt;/span&gt;/error.log &lt;span class=&quot;token variable&quot;&gt;${HISTORY_LOGS_PATH}&lt;/span&gt;/error_&lt;span class=&quot;token variable&quot;&gt;${YESTERDAY}&lt;/span&gt;.log
 &lt;span class=&quot;token function&quot;&gt;kill&lt;/span&gt; -USR1 &lt;span class=&quot;token variable&quot;&gt;&lt;span class=&quot;token variable&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;cat&lt;/span&gt; $&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;PID_PATH&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token variable&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;将以上脚本写入 path/to/nginx/shell 中&lt;/p&gt;
+&lt;p&gt;将以上脚本写入 path/to/nginx/shell 中。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;token function&quot;&gt;crontab&lt;/span&gt; -e
 // 写入
 &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; * * root /home/nginx/shell/rotate-logs.sh
