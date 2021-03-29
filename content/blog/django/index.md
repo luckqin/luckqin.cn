@@ -1,7 +1,7 @@
 ---
-title: Django -- 用户模块
+title: Django 从开发到部署
 date: '2021-03-28'
-description: Django 用户表、JWT、微信登录。
+description: Django 项目搭建、部署。
 ---
 
 Django 是一个由 Python 编写的一个开放源代码的 Web 应用框架。
