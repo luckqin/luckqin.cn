@@ -121,6 +121,17 @@ ALLOWED_HOSTS <span class="token operator">=</span> <span class="token punctuati
 
 
 <span class="token triple-quoted-string string">'''
+Rest Framework
+'''</span>
+REST_FRAMEWORK <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">'DEFAULT_AUTHENTICATION_CLASSES'</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+        <span class="token string">'rest_framework.authentication.SessionAuthentication'</span><span class="token punctuation">,</span>
+        <span class="token string">'rest_framework.authentication.BasicAuthentication'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+
+
+<span class="token triple-quoted-string string">'''
 Application definition
 '''</span>
 INSTALLED_APPS <span class="token operator">=</span> <span class="token punctuation">[</span>
@@ -130,11 +141,13 @@ INSTALLED_APPS <span class="token operator">=</span> <span class="token punctuat
     <span class="token string">'django.contrib.sessions'</span><span class="token punctuation">,</span>
     <span class="token string">'django.contrib.messages'</span><span class="token punctuation">,</span>
     <span class="token string">'django.contrib.staticfiles'</span><span class="token punctuation">,</span>
+    <span class="token string">'rest_framework'</span><span class="token punctuation">,</span>
 <span class="token punctuation">]</span>
 
 MIDDLEWARE <span class="token operator">=</span> <span class="token punctuation">[</span>
     <span class="token string">'django.middleware.security.SecurityMiddleware'</span><span class="token punctuation">,</span>
     <span class="token string">'django.contrib.sessions.middleware.SessionMiddleware'</span><span class="token punctuation">,</span>
+    <span class="token string">'corsheaders.middleware.CorsMiddleware'</span><span class="token punctuation">,</span>
     <span class="token string">'django.middleware.common.CommonMiddleware'</span><span class="token punctuation">,</span>
     <span class="token string">'django.middleware.csrf.CsrfViewMiddleware'</span><span class="token punctuation">,</span>
     <span class="token string">'django.contrib.auth.middleware.AuthenticationMiddleware'</span><span class="token punctuation">,</span>
@@ -296,7 +309,7 @@ DATABASES <span class="token operator">=</span> <span class="token punctuation">
 <p>在服务器中直接安装 python3.9，安装过程视具体操作系统而定。</p>
 <p>安装 python 依赖。</p>
 <div class="gatsby-highlight" data-language="shell"><pre class="language-shell"><code class="language-shell">python3.9 -m pip <span class="token function">install</span> -r requirements.txt
-python3.9 -m pip <span class="token function">install</span> uvicorn circus</code></pre></div>
+python3.9 -m pip <span class="token function">install</span> uvicorn circus Pillow</code></pre></div>
 <h4>配置 Nginx</h4>
 <p>创建 django_demo 的专属配置，并在 <code class="language-text">nginx.conf</code> 中导入该配置。</p>
 <p><strong>django_demo.conf</strong></p>
