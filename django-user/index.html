@@ -152,7 +152,462 @@ AUTH_USER_MODEL <span class="token operator">=</span> <span class="token string"
 urlpatterns <span class="token operator">=</span> <span class="token punctuation">[</span>
     <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">,</span>
     path<span class="token punctuation">(</span><span class="token string">'api/user/'</span><span class="token punctuation">,</span> include<span class="token punctuation">(</span><span class="token string">'apps.user.urls'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token punctuation">]</span></code></pre></div></section><hr/><footer><div class="bio"><div class="bio-avatar gatsby-image-wrapper" style="position:relative;overflow:hidden;display:inline-block;width:50px;height:50px"><img aria-hidden="true" src="data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAUABQDASIAAhEBAxEB/8QAGQABAQADAQAAAAAAAAAAAAAAAAUBAgYE/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhADEAAAAb/n1iHTMCVFF60J/8QAHBAAAwABBQAAAAAAAAAAAAAAAAIDAQQFERMy/9oACAEBAAEFAhHbLGpp1xjZkqbhnhKC+f/EABURAQEAAAAAAAAAAAAAAAAAABBB/9oACAEDAQE/ASH/xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAECAQE/AR//xAAcEAACAgIDAAAAAAAAAAAAAAAAAQIQESExQXH/2gAIAQEABj8CNqm++ERc28VD0wI//8QAHBAAAgICAwAAAAAAAAAAAAAAAREAECExUWFx/9oACAEBAAE/IYgCRGCKRbbRzC8uqNFWklh7CZOp/9oADAMBAAIAAwAAABCox3z/xAAWEQEBAQAAAAAAAAAAAAAAAAABEBH/2gAIAQMBAT8Qgu5//8QAFREBAQAAAAAAAAAAAAAAAAAAASD/2gAIAQIBAT8QI//EAB8QAQABAwQDAAAAAAAAAAAAAAEAESExEEFRgZGx4f/aAAgBAQABPxCGiHJHZ0qwF5oqLD1mXpNewP2+iS+fYMUgAe0ZbKV8T//Z" alt="qin" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:1;transition-delay:500ms;border-radius:50%"/><noscript><picture><source srcset="/static/88d9c1734a70152a9746af0f09e82fa5/340ed/logo.jpg 1x,
+<span class="token punctuation">]</span></code></pre></div>
+<p>main 中的设置基结束了，下面是 user 模块的代码。</p>
+<p>一个模块我习惯先从 models 入手，先定义出对象的数据结构。</p>
+<p><strong>user/models.py</strong></p>
+<div class="gatsby-highlight" data-language="py"><pre class="language-py"><code class="language-py"><span class="token keyword">from</span> django<span class="token punctuation">.</span>db <span class="token keyword">import</span> models
+<span class="token keyword">from</span> django<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>timezone <span class="token keyword">import</span> now
+<span class="token keyword">from</span> django<span class="token punctuation">.</span>core<span class="token punctuation">.</span>exceptions <span class="token keyword">import</span> ValidationError
+<span class="token keyword">from</span> django<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>translation <span class="token keyword">import</span> gettext_lazy
+<span class="token keyword">from</span> django<span class="token punctuation">.</span>contrib<span class="token punctuation">.</span>auth<span class="token punctuation">.</span>models <span class="token keyword">import</span> AbstractUser
+
+
+<span class="token keyword">class</span> <span class="token class-name">User</span><span class="token punctuation">(</span>AbstractUser<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    nickname <span class="token operator">=</span> models<span class="token punctuation">.</span>CharField<span class="token punctuation">(</span>
+        <span class="token string">'昵称'</span><span class="token punctuation">,</span>
+        max_length<span class="token operator">=</span><span class="token number">225</span><span class="token punctuation">,</span>
+        default<span class="token operator">=</span><span class="token string">''</span>
+    <span class="token punctuation">)</span>
+    avatar <span class="token operator">=</span> models<span class="token punctuation">.</span>CharField<span class="token punctuation">(</span>
+        <span class="token string">'头像'</span><span class="token punctuation">,</span>
+        max_length<span class="token operator">=</span><span class="token number">225</span><span class="token punctuation">,</span>
+        default<span class="token operator">=</span><span class="token string">''</span>
+    <span class="token punctuation">)</span>
+    gender <span class="token operator">=</span> models<span class="token punctuation">.</span>CharField<span class="token punctuation">(</span>
+        <span class="token string">'性别'</span><span class="token punctuation">,</span>
+        max_length<span class="token operator">=</span><span class="token number">225</span><span class="token punctuation">,</span>
+        default<span class="token operator">=</span><span class="token string">''</span>
+    <span class="token punctuation">)</span>
+    phone <span class="token operator">=</span> models<span class="token punctuation">.</span>CharField<span class="token punctuation">(</span>
+        <span class="token string">'手机号码'</span><span class="token punctuation">,</span>
+        max_length<span class="token operator">=</span><span class="token number">225</span><span class="token punctuation">,</span>
+        default<span class="token operator">=</span><span class="token string">''</span>
+    <span class="token punctuation">)</span>
+
+    <span class="token keyword">class</span> <span class="token class-name">Meta</span><span class="token punctuation">:</span>
+        verbose_name <span class="token operator">=</span> <span class="token string">'用户'</span>
+        verbose_name_plural <span class="token operator">=</span> verbose_name
+        ordering <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'-date_joined'</span><span class="token punctuation">]</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">Oauth</span><span class="token punctuation">(</span>models<span class="token punctuation">.</span>Model<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    OAUTH_TYPE <span class="token operator">=</span> <span class="token punctuation">(</span>
+        <span class="token punctuation">(</span><span class="token string">'weixin'</span><span class="token punctuation">,</span> <span class="token string">'微信'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span>
+
+    user <span class="token operator">=</span> models<span class="token punctuation">.</span>ForeignKey<span class="token punctuation">(</span>
+        <span class="token string">'user'</span><span class="token punctuation">,</span>
+        related_name<span class="token operator">=</span><span class="token string">'contained_oauths'</span><span class="token punctuation">,</span>
+        on_delete<span class="token operator">=</span>models<span class="token punctuation">.</span>CASCADE
+    <span class="token punctuation">)</span>
+    oauth_type <span class="token operator">=</span> models<span class="token punctuation">.</span>CharField<span class="token punctuation">(</span>
+        <span class="token string">'类型'</span><span class="token punctuation">,</span>
+        max_length<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">,</span>
+        choices<span class="token operator">=</span>OAUTH_TYPE<span class="token punctuation">,</span>
+    <span class="token punctuation">)</span>
+    oauth_id <span class="token operator">=</span> models<span class="token punctuation">.</span>CharField<span class="token punctuation">(</span>
+        <span class="token string">'oauth id'</span><span class="token punctuation">,</span>
+        max_length<span class="token operator">=</span><span class="token number">200</span>
+    <span class="token punctuation">)</span>
+    created_time <span class="token operator">=</span> models<span class="token punctuation">.</span>DateTimeField<span class="token punctuation">(</span>
+        <span class="token string">'创建时间'</span><span class="token punctuation">,</span>
+        default<span class="token operator">=</span>now
+    <span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">clean</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> Oauth<span class="token punctuation">.</span>objects<span class="token punctuation">.</span><span class="token builtin">filter</span><span class="token punctuation">(</span>oauth_type<span class="token operator">=</span>self<span class="token punctuation">.</span>oauth_type<span class="token punctuation">)</span><span class="token punctuation">.</span>exclude<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span>self<span class="token punctuation">.</span><span class="token builtin">id</span><span class="token punctuation">)</span><span class="token punctuation">.</span>count<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> ValidationError<span class="token punctuation">(</span>gettext_lazy<span class="token punctuation">(</span>self<span class="token punctuation">.</span>oauth_type <span class="token operator">+</span> <span class="token string">'已经存在'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__str__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>oauth_type
+
+    <span class="token keyword">class</span> <span class="token class-name">Meta</span><span class="token punctuation">:</span>
+        verbose_name <span class="token operator">=</span> <span class="token string">'Oauth 信息'</span>
+        verbose_name_plural <span class="token operator">=</span> <span class="token string">'用户 / Oauth'</span>
+        ordering <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'-created_time'</span><span class="token punctuation">]</span></code></pre></div>
+<p><strong>user/serializers.py</strong></p>
+<div class="gatsby-highlight" data-language="py"><pre class="language-py"><code class="language-py"><span class="token keyword">from</span> rest_framework <span class="token keyword">import</span> serializers
+<span class="token keyword">from</span> <span class="token punctuation">.</span>models <span class="token keyword">import</span> User<span class="token punctuation">,</span> Oauth
+
+
+<span class="token keyword">class</span> <span class="token class-name">UserSerializer</span><span class="token punctuation">(</span>serializers<span class="token punctuation">.</span>ModelSerializer<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">class</span> <span class="token class-name">Meta</span><span class="token punctuation">:</span>
+        model <span class="token operator">=</span> User
+        fields <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token string">'id'</span><span class="token punctuation">,</span> <span class="token string">'username'</span><span class="token punctuation">,</span> <span class="token string">'nickname'</span><span class="token punctuation">,</span> <span class="token string">'avatar_url'</span><span class="token punctuation">,</span> <span class="token string">'gender'</span><span class="token punctuation">,</span> <span class="token string">'phone_number'</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">OauthSerializer</span><span class="token punctuation">(</span>serializers<span class="token punctuation">.</span>ModelSerializer<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">class</span> <span class="token class-name">Meta</span><span class="token punctuation">:</span>
+        model <span class="token operator">=</span> Oauth
+        fields <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token string">'id'</span><span class="token punctuation">,</span> <span class="token string">'user'</span><span class="token punctuation">,</span> <span class="token string">'oauth_type'</span><span class="token punctuation">,</span> <span class="token string">'created_time'</span><span class="token punctuation">,</span> <span class="token string">'last_mod_time'</span><span class="token punctuation">)</span></code></pre></div>
+<p><strong>user/urls.py</strong></p>
+<div class="gatsby-highlight" data-language="py"><pre class="language-py"><code class="language-py"><span class="token keyword">from</span> django<span class="token punctuation">.</span>urls <span class="token keyword">import</span> path
+<span class="token keyword">from</span> <span class="token punctuation">.</span> <span class="token keyword">import</span> views
+
+urlpatterns <span class="token operator">=</span> <span class="token punctuation">[</span>
+    path<span class="token punctuation">(</span><span class="token string">'login/wx/'</span><span class="token punctuation">,</span> views<span class="token punctuation">.</span>WeixinLoginView<span class="token punctuation">.</span>as_view<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    path<span class="token punctuation">(</span><span class="token string">'login/wx/callback/'</span><span class="token punctuation">,</span> views<span class="token punctuation">.</span>WeixinLoginCallbackView<span class="token punctuation">.</span>as_view<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    path<span class="token punctuation">(</span><span class="token string">'logout/'</span><span class="token punctuation">,</span> views<span class="token punctuation">.</span>LogoutView<span class="token punctuation">.</span>as_view<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    path<span class="token punctuation">(</span><span class="token string">'current/'</span><span class="token punctuation">,</span> views<span class="token punctuation">.</span>CurrentView<span class="token punctuation">.</span>as_view<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">]</span></code></pre></div>
+<p><strong>user/admin.py</strong></p>
+<div class="gatsby-highlight" data-language="py"><pre class="language-py"><code class="language-py"><span class="token keyword">from</span> django<span class="token punctuation">.</span>contrib <span class="token keyword">import</span> admin
+<span class="token keyword">from</span> <span class="token punctuation">.</span>models <span class="token keyword">import</span> User<span class="token punctuation">,</span> Oauth
+
+
+<span class="token decorator annotation punctuation">@admin<span class="token punctuation">.</span>register</span><span class="token punctuation">(</span>User<span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">UserAdmin</span><span class="token punctuation">(</span>admin<span class="token punctuation">.</span>ModelAdmin<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    list_display <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">,</span> <span class="token string">'username'</span><span class="token punctuation">,</span> <span class="token string">'nickname'</span><span class="token punctuation">,</span>
+                    <span class="token string">'avatar_url'</span><span class="token punctuation">,</span> <span class="token string">'gender'</span><span class="token punctuation">,</span> <span class="token string">'phone_number'</span><span class="token punctuation">,</span> <span class="token string">'date_joined'</span><span class="token punctuation">]</span>
+    list_display_links <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">,</span> <span class="token string">'username'</span><span class="token punctuation">]</span>
+    ordering <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span>
+
+    empty_value_display <span class="token operator">=</span> <span class="token string">'--'</span>
+
+
+<span class="token decorator annotation punctuation">@admin<span class="token punctuation">.</span>register</span><span class="token punctuation">(</span>Oauth<span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">OauthAdmin</span><span class="token punctuation">(</span>admin<span class="token punctuation">.</span>ModelAdmin<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    list_display <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">,</span> <span class="token string">'user'</span><span class="token punctuation">,</span> <span class="token string">'oauth_type'</span><span class="token punctuation">,</span>
+                    <span class="token string">'oauth_id'</span><span class="token punctuation">,</span> <span class="token string">'created_time'</span><span class="token punctuation">,</span> <span class="token string">'last_mod_time'</span><span class="token punctuation">]</span>
+    list_display_links <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">,</span> <span class="token string">'user'</span><span class="token punctuation">]</span>
+    ordering <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span>
+
+    empty_value_display <span class="token operator">=</span> <span class="token string">'--'</span></code></pre></div>
+<p><strong>user/libs/jwt.py</strong></p>
+<div class="gatsby-highlight" data-language="py"><pre class="language-py"><code class="language-py"><span class="token keyword">import</span> jwt
+<span class="token keyword">import</span> datetime
+<span class="token keyword">from</span> jwt <span class="token keyword">import</span> exceptions
+<span class="token keyword">from</span> django<span class="token punctuation">.</span>conf <span class="token keyword">import</span> settings
+<span class="token keyword">from</span> django<span class="token punctuation">.</span>core<span class="token punctuation">.</span>cache <span class="token keyword">import</span> cache
+<span class="token keyword">from</span> rest_framework<span class="token punctuation">.</span>authentication <span class="token keyword">import</span> BaseAuthentication
+<span class="token keyword">from</span> rest_framework<span class="token punctuation">.</span>exceptions <span class="token keyword">import</span> AuthenticationFailed
+<span class="token keyword">from</span> apps<span class="token punctuation">.</span>user<span class="token punctuation">.</span>models <span class="token keyword">import</span> User
+<span class="token keyword">from</span> apps<span class="token punctuation">.</span>user<span class="token punctuation">.</span>serializers <span class="token keyword">import</span> UserSerializer
+
+
+<span class="token keyword">def</span> <span class="token function">checkToken</span><span class="token punctuation">(</span>token<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    salt <span class="token operator">=</span> settings<span class="token punctuation">.</span>SECRET_KEY
+
+    <span class="token keyword">try</span><span class="token punctuation">:</span>
+        result <span class="token operator">=</span> jwt<span class="token punctuation">.</span>decode<span class="token punctuation">(</span>token<span class="token punctuation">,</span> salt<span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+    <span class="token keyword">except</span> exceptions<span class="token punctuation">.</span>ExpiredSignatureError<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">'token过期失效'</span>
+    <span class="token keyword">except</span> exceptions<span class="token punctuation">.</span>DecodeError<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">'token认证失败'</span>
+    <span class="token keyword">except</span> exceptions<span class="token punctuation">.</span>InvalidTokenError<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">'无效的token'</span>
+
+    <span class="token comment"># 检查  token 是否在 redis 中存在，防止多设备登录</span>
+    user_id <span class="token operator">=</span> result<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span>
+    user_token_key <span class="token operator">=</span> <span class="token string">'usertoken_%d'</span> <span class="token operator">%</span> user_id
+    <span class="token keyword">if</span> cache<span class="token punctuation">.</span>get<span class="token punctuation">(</span>user_token_key<span class="token punctuation">)</span> <span class="token operator">!=</span> token<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">'无效的token'</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">{</span><span class="token string">'result'</span><span class="token punctuation">:</span> result<span class="token punctuation">,</span> <span class="token string">'user_id'</span><span class="token punctuation">:</span> user_id<span class="token punctuation">}</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">JwtQuertParamsAuthentication</span><span class="token punctuation">(</span>BaseAuthentication<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""
+    使用：在试图类中添加 authentication_classes = [JwtQuertParamsAuthentication]
+    """</span>
+
+    <span class="token keyword">def</span> <span class="token function">authenticate</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> request<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        token <span class="token operator">=</span> request<span class="token punctuation">.</span>META<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'HTTP_IDTOKEN'</span><span class="token punctuation">,</span> <span class="token boolean">None</span><span class="token punctuation">)</span>
+
+        c <span class="token operator">=</span> checkToken<span class="token punctuation">(</span>token<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token builtin">type</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span> <span class="token keyword">is</span> <span class="token builtin">str</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> AuthenticationFailed<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">'code'</span><span class="token punctuation">:</span> <span class="token number">1001</span><span class="token punctuation">,</span> <span class="token string">'msg'</span><span class="token punctuation">:</span> c<span class="token punctuation">}</span><span class="token punctuation">)</span>
+        result <span class="token operator">=</span> c<span class="token punctuation">[</span><span class="token string">'result'</span><span class="token punctuation">]</span>
+        user_id <span class="token operator">=</span> c<span class="token punctuation">[</span><span class="token string">'user_id'</span><span class="token punctuation">]</span>
+
+        user <span class="token operator">=</span> User<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span>user_id<span class="token punctuation">)</span>
+        user_data <span class="token operator">=</span> UserSerializer<span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">.</span>data
+        request<span class="token punctuation">.</span>token <span class="token operator">=</span> token
+        request<span class="token punctuation">.</span>user_data <span class="token operator">=</span> user_data
+        request<span class="token punctuation">.</span>user_object <span class="token operator">=</span> user
+
+        <span class="token keyword">return</span> <span class="token punctuation">{</span><span class="token string">'result'</span><span class="token punctuation">:</span> result<span class="token punctuation">,</span> <span class="token string">'token'</span><span class="token punctuation">:</span> token<span class="token punctuation">}</span>
+
+
+<span class="token keyword">def</span> <span class="token function">get_token</span><span class="token punctuation">(</span>payload<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    salt <span class="token operator">=</span> settings<span class="token punctuation">.</span>SECRET_KEY
+    headers <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token string">'typ'</span><span class="token punctuation">:</span> <span class="token string">'jwt_'</span><span class="token punctuation">,</span>
+        <span class="token string">'alg'</span><span class="token punctuation">:</span> <span class="token string">'HS256'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+    payload<span class="token punctuation">[</span><span class="token string">'exp'</span><span class="token punctuation">]</span> <span class="token operator">=</span> datetime<span class="token punctuation">.</span>datetime<span class="token punctuation">.</span>utcnow<span class="token punctuation">(</span>
+    <span class="token punctuation">)</span> <span class="token operator">+</span> datetime<span class="token punctuation">.</span>timedelta<span class="token punctuation">(</span>days<span class="token operator">=</span><span class="token number">50000</span><span class="token punctuation">)</span>
+    token <span class="token operator">=</span> jwt<span class="token punctuation">.</span>encode<span class="token punctuation">(</span>
+        payload<span class="token operator">=</span>payload<span class="token punctuation">,</span>
+        key<span class="token operator">=</span>salt<span class="token punctuation">,</span>
+        headers<span class="token operator">=</span>headers
+    <span class="token punctuation">)</span><span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> token</code></pre></div>
+<p><strong>user/libs/wx_login.py</strong></p>
+<div class="gatsby-highlight" data-language="py"><pre class="language-py"><code class="language-py"><span class="token keyword">import</span> pickle
+<span class="token keyword">from</span> django<span class="token punctuation">.</span>core<span class="token punctuation">.</span>cache <span class="token keyword">import</span> cache
+<span class="token keyword">from</span> apps<span class="token punctuation">.</span>user<span class="token punctuation">.</span>models <span class="token keyword">import</span> User
+<span class="token keyword">from</span> apps<span class="token punctuation">.</span>user<span class="token punctuation">.</span>serializers <span class="token keyword">import</span> UserSerializer
+
+
+<span class="token keyword">class</span> <span class="token class-name">WxLogin</span><span class="token punctuation">:</span>
+    <span class="token decorator annotation punctuation">@staticmethod</span>
+    <span class="token keyword">def</span> <span class="token function">get_wx_code_map</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        key <span class="token operator">=</span> <span class="token string">'WeixinCodeMap'</span>
+
+        res <span class="token operator">=</span> cache<span class="token punctuation">.</span>get<span class="token punctuation">(</span>key<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> res<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> pickle<span class="token punctuation">.</span>loads<span class="token punctuation">(</span>res<span class="token punctuation">)</span>
+
+    <span class="token decorator annotation punctuation">@staticmethod</span>
+    <span class="token keyword">def</span> <span class="token function">set_wx_code_map</span><span class="token punctuation">(</span>wx_code_map<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        key <span class="token operator">=</span> <span class="token string">'WeixinCodeMap'</span>
+
+        cache<span class="token punctuation">.</span><span class="token builtin">set</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> pickle<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span>wx_code_map<span class="token punctuation">)</span><span class="token punctuation">,</span> timeout<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">query</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> uuid<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        wx_code_map <span class="token operator">=</span> self<span class="token punctuation">.</span>get_wx_code_map<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+        res <span class="token operator">=</span> wx_code_map<span class="token punctuation">.</span>get<span class="token punctuation">(</span>uuid<span class="token punctuation">,</span> <span class="token boolean">None</span><span class="token punctuation">)</span>
+
+        <span class="token keyword">if</span> <span class="token keyword">not</span> res<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token boolean">None</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">del</span> wx_code_map<span class="token punctuation">[</span>uuid<span class="token punctuation">]</span>
+            self<span class="token punctuation">.</span>set_wx_code_map<span class="token punctuation">(</span>wx_code_map<span class="token punctuation">)</span>
+
+            <span class="token keyword">return</span> res
+
+    <span class="token keyword">def</span> <span class="token function">update</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> uuid<span class="token punctuation">,</span> code<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        wx_code_map <span class="token operator">=</span> self<span class="token punctuation">.</span>get_wx_code_map<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        wx_code_map<span class="token punctuation">[</span>uuid<span class="token punctuation">]</span> <span class="token operator">=</span> code
+
+        self<span class="token punctuation">.</span>set_wx_code_map<span class="token punctuation">(</span>uuidmap<span class="token punctuation">)</span>
+
+
+wxlogin <span class="token operator">=</span> WxLogin<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre></div>
+<p>完成了上面一些列铺垫，终于到了最重要的实现接口的时候了。</p>
+<p><strong>user/views.py</strong></p>
+<div class="gatsby-highlight" data-language="py"><pre class="language-py"><code class="language-py"><span class="token keyword">import</span> json
+<span class="token keyword">import</span> logging
+<span class="token keyword">import</span> requests
+<span class="token keyword">from</span> uuid <span class="token keyword">import</span> uuid4
+<span class="token keyword">import</span> urllib<span class="token punctuation">.</span>parse <span class="token keyword">as</span> urlparse
+<span class="token keyword">from</span> django<span class="token punctuation">.</span>conf <span class="token keyword">import</span> settings
+<span class="token keyword">from</span> django<span class="token punctuation">.</span>core<span class="token punctuation">.</span>cache <span class="token keyword">import</span> cache
+<span class="token keyword">from</span> django<span class="token punctuation">.</span>shortcuts <span class="token keyword">import</span> render
+<span class="token keyword">from</span> rest_framework<span class="token punctuation">.</span>response <span class="token keyword">import</span> Response
+<span class="token keyword">from</span> rest_framework<span class="token punctuation">.</span>views <span class="token keyword">import</span> APIView
+<span class="token keyword">from</span> <span class="token punctuation">.</span>libs<span class="token punctuation">.</span>jwt <span class="token keyword">import</span> get_token<span class="token punctuation">,</span> JwtQuertParamsAuthentication
+<span class="token keyword">from</span> <span class="token punctuation">.</span>libs<span class="token punctuation">.</span>wx_login <span class="token keyword">import</span> wxlogin
+<span class="token keyword">from</span> <span class="token punctuation">.</span>models <span class="token keyword">import</span> User<span class="token punctuation">,</span> Oauth
+<span class="token keyword">from</span> <span class="token punctuation">.</span>serializers <span class="token keyword">import</span> UserSerializer<span class="token punctuation">,</span> OauthSerializer
+
+logger <span class="token operator">=</span> logging<span class="token punctuation">.</span>getLogger<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">WeixinLoginView</span><span class="token punctuation">(</span>APIView<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">get_token_info</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> code<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        url <span class="token operator">=</span> <span class="token string">'https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&amp;secret=SECRET&amp;code=CODE&amp;grant_type=authorization_code'</span>
+        url <span class="token operator">=</span> url<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">'APPID'</span><span class="token punctuation">,</span> <span class="token string">'your appid'</span><span class="token punctuation">)</span>
+        url <span class="token operator">=</span> url<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">'SECRET'</span><span class="token punctuation">,</span> <span class="token string">'your secret'</span><span class="token punctuation">)</span>
+        url <span class="token operator">=</span> url<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">'CODE'</span><span class="token punctuation">,</span> code<span class="token punctuation">)</span>
+        res <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> res
+
+    <span class="token comment"># 用 access_token 和 openid 去换取微信用户信息</span>
+    <span class="token keyword">def</span> <span class="token function">get_wx_user_info</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> access_token<span class="token punctuation">,</span> openid<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        url <span class="token operator">=</span> <span class="token string">'https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&amp;openid=OPENID'</span>
+        url <span class="token operator">=</span> url<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">'ACCESS_TOKEN'</span><span class="token punctuation">,</span> access_token<span class="token punctuation">)</span>
+        url <span class="token operator">=</span> url<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">'OPENID'</span><span class="token punctuation">,</span> openid<span class="token punctuation">)</span>
+        res <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> res
+
+    <span class="token keyword">def</span> <span class="token function">set_token_to_cache</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> token<span class="token punctuation">,</span> user_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        user_token_key <span class="token operator">=</span> <span class="token string">'userToken_%d'</span> <span class="token operator">%</span> user_id
+        <span class="token comment"># 设置一条永不过期的记录，以后每次 login 都会刷新这条记录</span>
+        cache<span class="token punctuation">.</span><span class="token builtin">set</span><span class="token punctuation">(</span>user_token_key<span class="token punctuation">,</span> token<span class="token punctuation">,</span> timeout<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">get</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> request<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        querys <span class="token operator">=</span> urlparse<span class="token punctuation">.</span>parse_qs<span class="token punctuation">(</span>request<span class="token punctuation">.</span>META<span class="token punctuation">[</span><span class="token string">'QUERY_STRING'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        uuid <span class="token operator">=</span> querys<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'uuid'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token boolean">None</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+
+        <span class="token keyword">if</span> uuid <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> Response<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">'code'</span><span class="token punctuation">:</span> <span class="token string">'params-error'</span><span class="token punctuation">,</span> <span class="token string">'msg'</span><span class="token punctuation">:</span> <span class="token string">'缺少参数 uuid'</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+        code <span class="token operator">=</span> wxlogin<span class="token punctuation">.</span>query<span class="token punctuation">(</span>uuid<span class="token punctuation">)</span>
+
+        <span class="token keyword">if</span> code <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> Response<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">'code'</span><span class="token punctuation">:</span> <span class="token number">200</span><span class="token punctuation">,</span> <span class="token string">'data'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token string">'msg'</span><span class="token punctuation">:</span> <span class="token string">'找不到该 uuid 匹配的 code'</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+        <span class="token comment"># 根据 code 获取 accesstoken</span>
+        token_info <span class="token operator">=</span> self<span class="token punctuation">.</span>get_token_info<span class="token punctuation">(</span>code<span class="token punctuation">)</span>
+        errcode <span class="token operator">=</span> token_info<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'errcode'</span><span class="token punctuation">,</span> <span class="token boolean">None</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> errcode <span class="token keyword">is</span> <span class="token keyword">not</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+            errmsg <span class="token operator">=</span> token_info<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'errmsg'</span><span class="token punctuation">,</span> <span class="token boolean">None</span><span class="token punctuation">)</span>
+            logger<span class="token punctuation">.</span>error<span class="token punctuation">(</span><span class="token string">'[获取 AccessToken 失败] errcode: '</span> <span class="token operator">+</span>
+                         <span class="token builtin">str</span><span class="token punctuation">(</span>errcode<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">', errmsg: '</span> <span class="token operator">+</span> errmsg<span class="token punctuation">)</span>
+
+            <span class="token keyword">return</span> Response<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">'code'</span><span class="token punctuation">:</span> errcode<span class="token punctuation">,</span> <span class="token string">'msg'</span><span class="token punctuation">:</span> errmsg<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+        access_token <span class="token operator">=</span> token_info<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'access_token'</span><span class="token punctuation">)</span>
+        openid <span class="token operator">=</span> token_info<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'openid'</span><span class="token punctuation">)</span>
+
+        <span class="token comment"># 用 access_token 和 openid 去换取微信用户信息</span>
+        wx_user_info <span class="token operator">=</span> self<span class="token punctuation">.</span>get_wx_user_info<span class="token punctuation">(</span>access_token<span class="token punctuation">,</span> openid<span class="token punctuation">)</span>
+        errcode <span class="token operator">=</span> wx_user_info<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'errcode'</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> errcode <span class="token keyword">is</span> <span class="token keyword">not</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+            errmsg <span class="token operator">=</span> wx_user_info<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'errmsg'</span><span class="token punctuation">)</span>
+            logger<span class="token punctuation">.</span>error<span class="token punctuation">(</span><span class="token string">'[获取微信用户信息失败] errcode: '</span> <span class="token operator">+</span>
+                         <span class="token builtin">str</span><span class="token punctuation">(</span>errcode<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">', errmsg: '</span> <span class="token operator">+</span> errmsg<span class="token punctuation">)</span>
+
+            <span class="token keyword">return</span> Response<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">'code'</span><span class="token punctuation">:</span> errcode<span class="token punctuation">,</span> <span class="token string">'msg'</span><span class="token punctuation">:</span> errmsg<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+        unionid <span class="token operator">=</span> wx_user_info<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'unionid'</span><span class="token punctuation">)</span>
+
+        <span class="token comment"># 从 Oauth.user 中获取用户信息，若 Oauth 不存在则同时创建 Oauth 和 User</span>
+        user <span class="token operator">=</span> <span class="token boolean">None</span>
+        oauth <span class="token operator">=</span> <span class="token boolean">None</span>
+        <span class="token keyword">try</span><span class="token punctuation">:</span>
+            oauth <span class="token operator">=</span> Oauth<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>get<span class="token punctuation">(</span>oauth_type<span class="token operator">=</span><span class="token string">'weixin'</span><span class="token punctuation">,</span> oauth_id<span class="token operator">=</span>unionid<span class="token punctuation">)</span>
+            oauth_data <span class="token operator">=</span> OauthSerializer<span class="token punctuation">(</span>oauth<span class="token punctuation">)</span><span class="token punctuation">.</span>data
+            user_id <span class="token operator">=</span> oauth_data<span class="token punctuation">[</span><span class="token string">'user'</span><span class="token punctuation">]</span>
+            user <span class="token operator">=</span> User<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>get<span class="token punctuation">(</span>pk<span class="token operator">=</span>user_id<span class="token punctuation">)</span>
+            user<span class="token punctuation">.</span>nickname <span class="token operator">=</span> wx_user_info<span class="token punctuation">.</span>get<span class="token punctuation">(</span>
+                <span class="token string">'nickname'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">"iso-8859-1"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            user<span class="token punctuation">.</span>avatar_url <span class="token operator">=</span> wx_user_info<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'headimgurl'</span><span class="token punctuation">)</span>
+            user<span class="token punctuation">.</span>save<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">except</span> Oauth<span class="token punctuation">.</span>DoesNotExist<span class="token punctuation">:</span>
+            user <span class="token operator">=</span> User<span class="token punctuation">(</span>
+                username<span class="token operator">=</span><span class="token string">'user_'</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>uuid4<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                nickname<span class="token operator">=</span>wx_user_info<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'nickname'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                gender<span class="token operator">=</span><span class="token string">'男'</span> <span class="token keyword">if</span> wx_user_info<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'sex'</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span> <span class="token keyword">else</span> <span class="token string">'女'</span><span class="token punctuation">,</span>
+                avatar_url<span class="token operator">=</span>wx_user_info<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'headimgurl'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">)</span>
+            user<span class="token punctuation">.</span>save<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            oauth <span class="token operator">=</span> Oauth<span class="token punctuation">(</span>oauth_type<span class="token operator">=</span><span class="token string">'weixin'</span><span class="token punctuation">,</span> oauth_id<span class="token operator">=</span>unionid<span class="token punctuation">,</span> user<span class="token operator">=</span>user<span class="token punctuation">)</span>
+            oauth<span class="token punctuation">.</span>save<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        oauth_data <span class="token operator">=</span> OauthSerializer<span class="token punctuation">(</span>oauth<span class="token punctuation">)</span><span class="token punctuation">.</span>data
+        user_data <span class="token operator">=</span> UserSerializer<span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">.</span>data
+
+        <span class="token comment"># 使用 user.id 和 user.username 生成 jwt token</span>
+        payload <span class="token operator">=</span> <span class="token punctuation">{</span>
+            <span class="token string">'id'</span><span class="token punctuation">:</span> user_data<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token string">'username'</span><span class="token punctuation">:</span> user_data<span class="token punctuation">[</span><span class="token string">'username'</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span>
+        token <span class="token operator">=</span> get_token<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+
+        <span class="token comment"># 将 jwt 存到 redis 中，防止重复登录</span>
+        self<span class="token punctuation">.</span>set_token_to_cache<span class="token punctuation">(</span>token<span class="token punctuation">,</span> user<span class="token punctuation">.</span><span class="token builtin">id</span><span class="token punctuation">)</span>
+
+        <span class="token keyword">return</span> Response<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">'code'</span><span class="token punctuation">:</span> <span class="token number">200</span><span class="token punctuation">,</span> <span class="token string">'data'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">'token'</span><span class="token punctuation">:</span> token<span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">WeixinLoginCallbackView</span><span class="token punctuation">(</span>APIView<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">get</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> request<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        querys <span class="token operator">=</span> urlparse<span class="token punctuation">.</span>parse_qs<span class="token punctuation">(</span>request<span class="token punctuation">.</span>META<span class="token punctuation">[</span><span class="token string">'QUERY_STRING'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        uuid <span class="token operator">=</span> querys<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'state'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token boolean">None</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+        code <span class="token operator">=</span> querys<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'code'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token boolean">None</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+
+        <span class="token keyword">if</span> code <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> Response<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">'code'</span><span class="token punctuation">:</span> <span class="token string">'params-error'</span><span class="token punctuation">,</span> <span class="token string">'msg'</span><span class="token punctuation">:</span> <span class="token string">'缺少参数 code'</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+        <span class="token keyword">if</span> uuid <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> Response<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">'code'</span><span class="token punctuation">:</span> <span class="token string">'params-error'</span><span class="token punctuation">,</span> <span class="token string">'msg'</span><span class="token punctuation">:</span> <span class="token string">'缺少参数 uuid'</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+        wxlogin<span class="token punctuation">.</span>update<span class="token punctuation">(</span>uuid<span class="token punctuation">,</span> code<span class="token punctuation">)</span>
+
+        response <span class="token operator">=</span> render<span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token string">'wx-login-success.html'</span><span class="token punctuation">)</span>
+        response<span class="token punctuation">[</span><span class="token string">'X-Frame-Options'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'ALLOW-FROM http://localhost/'</span>
+
+        <span class="token keyword">return</span> response
+
+
+<span class="token keyword">class</span> <span class="token class-name">LogoutView</span><span class="token punctuation">(</span>APIView<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    authentication_classes <span class="token operator">=</span> <span class="token punctuation">[</span>JwtQuertParamsAuthentication<span class="token punctuation">]</span>
+
+    <span class="token keyword">def</span> <span class="token function">remove_token_from_cache</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> token<span class="token punctuation">,</span> user_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        user_token_key <span class="token operator">=</span> <span class="token string">'userToken_%d'</span> <span class="token operator">%</span> user_id
+        cache<span class="token punctuation">.</span>delete_pattern<span class="token punctuation">(</span>user_token_key<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">post</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> request<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        user_data <span class="token operator">=</span> request<span class="token punctuation">.</span>user_data
+        token <span class="token operator">=</span> request<span class="token punctuation">.</span>token
+
+        user_id <span class="token operator">=</span> user_data<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>remove_token_from_cache<span class="token punctuation">(</span>token<span class="token punctuation">,</span> user_id<span class="token punctuation">)</span>
+
+        <span class="token keyword">return</span> Response<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">'code'</span><span class="token punctuation">:</span> <span class="token number">200</span><span class="token punctuation">,</span> <span class="token string">'msg'</span><span class="token punctuation">:</span> <span class="token string">'登出成功'</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">CurrentView</span><span class="token punctuation">(</span>APIView<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    authentication_classes <span class="token operator">=</span> <span class="token punctuation">[</span>JwtQuertParamsAuthentication<span class="token punctuation">]</span>
+
+    <span class="token keyword">def</span> <span class="token function">get</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> request<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        user_data <span class="token operator">=</span> request<span class="token punctuation">.</span>user_data
+
+        <span class="token keyword">return</span> Response<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">'code'</span><span class="token punctuation">:</span> <span class="token number">200</span><span class="token punctuation">,</span> <span class="token string">'data'</span><span class="token punctuation">:</span> user_data<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre></div>
+<p>理论上你只需要替换 APPID 和 SECRET 就能使用了，但是这边还有一个小东西，即 <code class="language-text">response = render(request, &#39;wx-login-success.html&#39;)</code> 这行小代码，我们可以把登录成功之后 iframe 需要展示的内容在接口中返回。这边利用 django 的 render 方法渲染了一个 html 模版，将渲染后的 html 格式的字符串返回。这样，iframe 里原来显示的是二维码，然后用户授权发起重定向，登录成功之后就会显示出我们后端 callback 接口返回的 html。</p>
+<p><strong>templates/wx-login-success.html</strong></p>
+<blockquote>
+<p>templates 放在根目录下, wx-login-success.html 样式只是作为参考，可以自由发挥。</p>
+</blockquote>
+<div class="gatsby-highlight" data-language="html"><pre class="language-html"><code class="language-html"><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>登录成功<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text/css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token style"><span class="token language-css">
+      <span class="token selector">body</span> <span class="token punctuation">{</span>
+        <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
+        <span class="token property">height</span><span class="token punctuation">:</span> 100vh<span class="token punctuation">;</span>
+        <span class="token property">overflow</span><span class="token punctuation">:</span> hidden<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token selector">.container</span> <span class="token punctuation">{</span>
+        <span class="token property">width</span><span class="token punctuation">:</span> 50%<span class="token punctuation">;</span>
+        <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span>
+        <span class="token property">text-align</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span>
+        <span class="token property">top</span><span class="token punctuation">:</span> 50%<span class="token punctuation">;</span>
+        <span class="token property">left</span><span class="token punctuation">:</span> 50%<span class="token punctuation">;</span>
+        <span class="token property">transform</span><span class="token punctuation">:</span> <span class="token function">translate</span><span class="token punctuation">(</span>-50%<span class="token punctuation">,</span> -50%<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token selector">.icon</span> <span class="token punctuation">{</span>
+        <span class="token property">width</span><span class="token punctuation">:</span> 60%<span class="token punctuation">;</span>
+        <span class="token property">overflow</span><span class="token punctuation">:</span> hidden<span class="token punctuation">;</span>
+        <span class="token property">vertical-align</span><span class="token punctuation">:</span> middle<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token selector">.tip</span> <span class="token punctuation">{</span>
+        <span class="token property">font-size</span><span class="token punctuation">:</span> 3em<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>svg</span>
+        <span class="token attr-name">t</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>1615970048484<span class="token punctuation">"</span></span>
+        <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>icon<span class="token punctuation">"</span></span>
+        <span class="token attr-name">viewBox</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0 0 1024 1024<span class="token punctuation">"</span></span>
+        <span class="token attr-name">version</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>1.1<span class="token punctuation">"</span></span>
+        <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://www.w3.org/2000/svg<span class="token punctuation">"</span></span>
+        <span class="token attr-name">p-id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>5130<span class="token punctuation">"</span></span>
+        <span class="token attr-name">data-spm-anchor-id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>a313x.7781069.0.i1<span class="token punctuation">"</span></span>
+      <span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>path</span>
+          <span class="token attr-name">d</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>M512 952.32c243.17952 0 440.32-197.14048 440.32-440.32s-197.14048-440.32-440.32-440.32-440.32 197.14048-440.32 440.32 197.14048 440.32 440.32 440.32z m0 46.08c-268.63104 0-486.4-217.76896-486.4-486.4S243.36896 25.6 512 25.6s486.4 217.76896 486.4 486.4-217.76896 486.4-486.4 486.4z m-315.04384-472.23808a23.04 23.04 0 1 1 36.16768-28.55424l149.66272 189.54752a17.92 17.92 0 0 0 26.63424 1.66912l352.6656-346.84928a23.04 23.04 0 0 1 32.3072 32.84992l-352.6656 346.8544a64 64 0 0 1-5.21216 4.59776c-27.74016 21.90848-67.98848 17.1776-89.89184-10.56768l-149.66784-189.5424z<span class="token punctuation">"</span></span>
+          <span class="token attr-name">fill</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#88D0AD<span class="token punctuation">"</span></span>
+          <span class="token attr-name">p-id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>5131<span class="token punctuation">"</span></span>
+        <span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>path</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>svg</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>tip<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>微信登录成功<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span></code></pre></div></section><hr/><footer><div class="bio"><div class="bio-avatar gatsby-image-wrapper" style="position:relative;overflow:hidden;display:inline-block;width:50px;height:50px"><img aria-hidden="true" src="data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAUABQDASIAAhEBAxEB/8QAGQABAQADAQAAAAAAAAAAAAAAAAUBAgYE/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhADEAAAAb/n1iHTMCVFF60J/8QAHBAAAwABBQAAAAAAAAAAAAAAAAIDAQQFERMy/9oACAEBAAEFAhHbLGpp1xjZkqbhnhKC+f/EABURAQEAAAAAAAAAAAAAAAAAABBB/9oACAEDAQE/ASH/xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAECAQE/AR//xAAcEAACAgIDAAAAAAAAAAAAAAAAAQIQESExQXH/2gAIAQEABj8CNqm++ERc28VD0wI//8QAHBAAAgICAwAAAAAAAAAAAAAAAREAECExUWFx/9oACAEBAAE/IYgCRGCKRbbRzC8uqNFWklh7CZOp/9oADAMBAAIAAwAAABCox3z/xAAWEQEBAQAAAAAAAAAAAAAAAAABEBH/2gAIAQMBAT8Qgu5//8QAFREBAQAAAAAAAAAAAAAAAAAAASD/2gAIAQIBAT8QI//EAB8QAQABAwQDAAAAAAAAAAAAAAEAESExEEFRgZGx4f/aAAgBAQABPxCGiHJHZ0qwF5oqLD1mXpNewP2+iS+fYMUgAe0ZbKV8T//Z" alt="qin" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:1;transition-delay:500ms;border-radius:50%"/><noscript><picture><source srcset="/static/88d9c1734a70152a9746af0f09e82fa5/340ed/logo.jpg 1x,
 /static/88d9c1734a70152a9746af0f09e82fa5/32ce1/logo.jpg 1.5x,
 /static/88d9c1734a70152a9746af0f09e82fa5/04d41/logo.jpg 2x" /><img loading="lazy" width="50" height="50" srcset="/static/88d9c1734a70152a9746af0f09e82fa5/340ed/logo.jpg 1x,
 /static/88d9c1734a70152a9746af0f09e82fa5/32ce1/logo.jpg 1.5x,
