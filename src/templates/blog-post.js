@@ -7,8 +7,12 @@ import SEO from '../components/seo';
 
 const BlogPostTemplate = ({ data, location }) => {
   const post = data.markdownRemark;
+  const posts = data.allMarkdownRemark.nodes;
   const siteTitle = data.site.siteMetadata?.title || `Title`;
-  const { previous, next } = data;
+
+  const nowIndex = posts.findIndex(item => item.id === post.id);
+  const previous = nowIndex === 0 ? null : posts[nowIndex - 1];
+  const next = nowIndex === posts.length - 1 ? null : posts[nowIndex + 1];
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -40,16 +44,16 @@ const BlogPostTemplate = ({ data, location }) => {
           }}
         >
           <li>
-            {next && (
-              <Link to={next.fields.slug} rel="next">
-                ← {next.frontmatter.title}
+            {previous && (
+              <Link to={previous.fields.slug} rel="prev">
+                ← {previous.frontmatter.title}
               </Link>
             )}
           </li>
           <li>
-            {previous && (
-              <Link to={previous.fields.slug} rel="prev">
-                {previous.frontmatter.title} →
+            {next && (
+              <Link to={next.fields.slug} rel="next">
+                {next.frontmatter.title} →
               </Link>
             )}
           </li>
@@ -62,10 +66,25 @@ const BlogPostTemplate = ({ data, location }) => {
 export default BlogPostTemplate;
 
 export const pageQuery = graphql`
-  query BlogPostBySlug($id: String!, $previousPostId: String, $nextPostId: String) {
+  query BlogPostBySlug($id: String!) {
     site {
       siteMetadata {
         title
+      }
+    }
+    allMarkdownRemark(sort: { fields: [frontmatter___order], order: ASC }) {
+      nodes {
+        id
+        excerpt
+        fields {
+          slug
+        }
+        frontmatter {
+          date(formatString: "MMMM DD, YYYY")
+          title
+          description
+          order
+        }
       }
     }
     markdownRemark(id: { eq: $id }) {
@@ -76,22 +95,6 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
-      }
-    }
-    previous: markdownRemark(id: { eq: $previousPostId }) {
-      fields {
-        slug
-      }
-      frontmatter {
-        title
-      }
-    }
-    next: markdownRemark(id: { eq: $nextPostId }) {
-      fields {
-        slug
-      }
-      frontmatter {
-        title
       }
     }
   }
