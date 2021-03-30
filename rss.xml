@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Qin Blog]]></title><description><![CDATA[A starter blog demonstrating what Gatsby can do.]]></description><link>http://luckqin.cn</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 29 Mar 2021 06:32:11 GMT</lastBuildDate><item><title><![CDATA[Django 从开发到部署]]></title><description><![CDATA[Django 是一个由 Python 编写的一个开放源代码的 Web 应用框架。 使用 Django，只要很少的代码，Python 的程序开发人员就可以轻松地完成一个正式网站所需要的大部分内容，并进一步开发出全功能的 Web 服务 Django 本身基于 MVC…]]></description><link>http://luckqin.cn/django/</link><guid isPermaLink="false">http://luckqin.cn/django/</guid><pubDate>Sun, 28 Mar 2021 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Django 是一个由 Python 编写的一个开放源代码的 Web 应用框架。&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Qin Blog]]></title><description><![CDATA[A starter blog demonstrating what Gatsby can do.]]></description><link>http://luckqin.cn</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 30 Mar 2021 10:01:50 GMT</lastBuildDate><item><title><![CDATA[Django 从开发到部署]]></title><description><![CDATA[Django 是一个由 Python 编写的一个开放源代码的 Web 应用框架。 使用 Django，只要很少的代码，Python 的程序开发人员就可以轻松地完成一个正式网站所需要的大部分内容，并进一步开发出全功能的 Web 服务 Django 本身基于 MVC…]]></description><link>http://luckqin.cn/django/</link><guid isPermaLink="false">http://luckqin.cn/django/</guid><pubDate>Sun, 28 Mar 2021 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Django 是一个由 Python 编写的一个开放源代码的 Web 应用框架。&lt;/p&gt;
 &lt;p&gt;使用 Django，只要很少的代码，Python 的程序开发人员就可以轻松地完成一个正式网站所需要的大部分内容，并进一步开发出全功能的 Web 服务 Django 本身基于 MVC 模型，即 Model（模型）+ View（视图）+ Controller（控制器）设计模式，MVC 模式使后续对程序的修改和扩展简化，并且使程序某一部分的重复利用成为可能。&lt;/p&gt;
 &lt;h2&gt;本地开发篇&lt;/h2&gt;
 &lt;h3&gt;环境搭建&lt;/h3&gt;
@@ -342,7 +342,93 @@ python3.9 -m pip &lt;span class=&quot;token function&quot;&gt;install&lt;/span&g
 &lt;p&gt;重启/停止。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;circusctl restart/stop&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Django 其他操作。&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;./runp makemigrations/migrate/collectstatic/createsuperuser&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[Django -- 用户模块]]></title><link>http://luckqin.cn/django-user/</link><guid isPermaLink="false">http://luckqin.cn/django-user/</guid><pubDate>Sun, 28 Mar 2021 00:00:00 GMT</pubDate><content:encoded></content:encoded></item><item><title><![CDATA[Nginx]]></title><description><![CDATA[NGINX is a free, open-source, high-performance HTTP server and reverse proxy, as well as an IMAP/POP3 proxy server. NGINX is known for its…]]></description><link>http://luckqin.cn/nginx/</link><guid isPermaLink="false">http://luckqin.cn/nginx/</guid><pubDate>Wed, 27 Jan 2021 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;NGINX is a free, open-source, high-performance HTTP server and reverse proxy, as well as an IMAP/POP3 proxy server. NGINX is known for its high performance, stability, rich feature set, simple configuration, and low resource consumption.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell&quot;&gt;&lt;pre class=&quot;language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;./runp makemigrations/migrate/collectstatic/createsuperuser&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[Django -- 用户模块]]></title><description><![CDATA[上一篇 Django 从开发到部署 介绍了 Django 的基本操作。这篇将基于上一篇的代码，来扩展一个用户模块。 该模块基于 Django 自带的 auth 模块进行扩展，并实现了微信扫码登录的后端功能。 模块概览 其中： user/libs: 用户模块相关工具库。 user…]]></description><link>http://luckqin.cn/django-user/</link><guid isPermaLink="false">http://luckqin.cn/django-user/</guid><pubDate>Sun, 28 Mar 2021 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;上一篇 &lt;a href=&quot;/django&quot;&gt;Django 从开发到部署&lt;/a&gt; 介绍了 Django 的基本操作。这篇将基于上一篇的代码，来扩展一个用户模块。&lt;/p&gt;
+&lt;p&gt;该模块基于 Django 自带的 auth 模块进行扩展，并实现了微信扫码登录的后端功能。&lt;/p&gt;
+&lt;h3&gt;模块概览&lt;/h3&gt;
+&lt;span class=&quot;gatsby-resp-image-wrapper&quot; style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 320px; margin: 0;&quot;&gt;
+      &lt;span class=&quot;gatsby-resp-image-background-image&quot; style=&quot;padding-bottom: 104.43037974683544%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAVCAYAAABG1c6oAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB6ElEQVQ4y52VyZKbQBBE9Qv2mB0ESAgh9gaEWCXQ+OzL/P+3pKt7IjRhn6Y5FEsE8SKzs6rYqa6P9yTDR3tDPc5gzRWa5cBw3E210+iSnSO8zytY26O59TD3HnR7vw3IL9YhQPNYkbESHam0vcM/QBk4AffQTB/zGuLPx0DAJ/xTiF+6CdW0oRiWFHT3enEPGH+PCM5H5KxBkpc4XRJxV01HzjJXqVgehqVCwVLUt4HsVwJ2yQqpkF5A1fbQLzXarkY/L8irGj8UDT9V/QX8ju0vIFe4NtQ2BdphxkQh8eqmGTGp5Ocpp5CA47NBRUBumV1bBFGMYxhhT10gGQolbftk+RPYdCNVLz7gyjZZftMdjCujUBIB5IG8aYZ0L+5024VJD3U/o38sqGkE5/Upzo41rfTUCIW6ZSOuW7BhoAByzMsTackE8P+p+RZQ0W1ERYxhTnGKUnF+lzRHRWrdYyDfh4rBgSnGByPLA27DJCqM022jx4HnnIB3brMj6Gc5/lF663wpJOBwL9H2E03KnZp7FOe3aX0JYJkRqBCLgYfCFfbTXSjcEIqFU5pQu9ByqK6iZTjQC0Kppn7tQ9Vy0UwtkoxWV9WKsctZjTP9GmR/BzuDW3Jojh85wktEynokBU1MfRV3WeBfOy9LifnoNJwAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;&gt;&lt;/span&gt;
+  &lt;img class=&quot;gatsby-resp-image-image&quot; alt=&quot;catalogue&quot; title=&quot;catalogue&quot; src=&quot;/static/31cdabda0cdfc6318147886477add5a5/72799/catalogue.png&quot; srcset=&quot;/static/31cdabda0cdfc6318147886477add5a5/c26ae/catalogue.png 158w,
+/static/31cdabda0cdfc6318147886477add5a5/6bdcf/catalogue.png 315w,
+/static/31cdabda0cdfc6318147886477add5a5/72799/catalogue.png 320w&quot; sizes=&quot;(max-width: 320px) 100vw, 320px&quot; style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot; loading=&quot;lazy&quot;&gt;
+    &lt;/span&gt;
+&lt;br&gt;
+&lt;p&gt;其中：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;user/libs:&lt;/strong&gt; 用户模块相关工具库。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;user/libs/jwt:&lt;/strong&gt; jwt 相关工具库，包括 token 的创建、校验、登录状态中间件。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;user/libs/wx_login:&lt;/strong&gt; 微信登录相关工具库。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;…&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;其他文件就是 Django 的套路了，不一一介绍了。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;表结构设计&lt;/h3&gt;
+&lt;p&gt;分成两张表，一张是用户表（User），一张是 Oauth 登录信息表（Oauth）。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;User 表&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;继承 django.contrib.auth.models.AbstractUser&lt;/p&gt;
+&lt;p&gt;nickname 昵称 &lt;/br&gt;
+avatar&lt;em&gt;url 头像 &lt;/br&gt;
+gender 性别 &lt;/br&gt;
+phone&lt;/em&gt;number 电话号码&lt;/p&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;Oauth 表&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;user 外键指向某个用户 &lt;/br&gt;
+oauth&lt;em&gt;type 渠道（微信或者其他渠道） &lt;/br&gt;
+oauth&lt;/em&gt;id 渠道提供的该用户的唯一 id &lt;/br&gt;
+created&lt;em&gt;time 创建时间 &lt;/br&gt;
+last&lt;/em&gt;mod_time 最后修改时间&lt;/p&gt;
+&lt;h3&gt;微信扫码登录流程&lt;/h3&gt;
+&lt;p&gt;请先阅读官方文档：&lt;a href=&quot;https://developers.weixin.qq.com/doc/oplatform/Website_App/WeChat_Login/Wechat_Login.html&quot;&gt;微信登录流程&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;流程已经很清晰了：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;获取 code&lt;/li&gt;
+&lt;li&gt;通过 code 获取 access_token&lt;/li&gt;
+&lt;li&gt;使用 access_token 去获取用户信息（unionid、用户昵称、用户头像）&lt;/li&gt;
+&lt;li&gt;后端将微信 unionid 和 数据库中的用户信息进行对应，完成用户登录&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;前端要做的事情&lt;/h4&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// 先引入 http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; obj &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;WxLogin&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  self_redirect&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  id&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;login_container&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  appid&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  scope&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  redirect_uri&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  state&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  style&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  href&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;好好研究上面这段代码的传参，其实已经明确了流程。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;参数 id&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这段代码会在 id 对应的 dom 节点上渲染一个 iframe 元素，在这个 iframe 元素中展示的是登录用的二维码。&lt;/p&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;参数 redirect_uri&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;在用户扫码之后，点击了确认授权，该 iframe 会发起一个重定向请求到 redirect&lt;em&gt;uri，而在它的 query 中会携带上 code。而这个 redirect&lt;/em&gt;uri 便是我们后端要开的一个接口（这边称它为 callback 接口）。&lt;/p&gt;
+&lt;p&gt;到这步为止，其实已经完成第一步，后端已经获取到 code 了，二三两步自然能很容易在后端完成。&lt;/p&gt;
+&lt;p&gt;那么，还有个问题，后端 callback 接口中处理完 1 ～ 4 步，用户已经登录成功，怎么通知前端页面呢？&lt;/p&gt;
+&lt;p&gt;我的方案是：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;后端再提供一个供前端轮询的接口，前端加载出二维码之后开始发起轮询， 轮询的时候带一个 uuid。如果接口返回中带有 token，表示用户已登录成功，否则继续轮询。&lt;/li&gt;
+&lt;li&gt;前端在 redirect_uri 中也带上 1 中的那个 uuid，后端在 callback 接口中获取到该 uuid，以该 uuid 为 key，将登录完成后的 token 存在 redis 中。在 1 的轮询接口中，
+使用 uuid 为 key 去 redis 中查询，如果 token 存在则表明用户已登录，返回 token，否则未登录。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;uuid 可以放在 state 参数中，因为 state 参数会自动拼接到 redirect_uri 里去&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;后端要做的事情&lt;/h4&gt;
+&lt;p&gt;后端需要提供两个接口：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;login/wx/&lt;/li&gt;
+&lt;li&gt;login/wx/callback/&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;第一个接口供前端轮询是否已经登录成功；第二个接口是用户授权后 iframe 重定向的地址，在该接口中可以获取到 code，进而处理用户登录逻辑。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Nginx]]></title><description><![CDATA[NGINX is a free, open-source, high-performance HTTP server and reverse proxy, as well as an IMAP/POP3 proxy server. NGINX is known for its…]]></description><link>http://luckqin.cn/nginx/</link><guid isPermaLink="false">http://luckqin.cn/nginx/</guid><pubDate>Wed, 27 Jan 2021 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;NGINX is a free, open-source, high-performance HTTP server and reverse proxy, as well as an IMAP/POP3 proxy server. NGINX is known for its high performance, stability, rich feature set, simple configuration, and low resource consumption.&lt;/p&gt;
 &lt;h3&gt;编译 Nginx&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;在 &lt;a href=&quot;http://nginx.org/en/download.html&quot;&gt;Nginx Download&lt;/a&gt; 选择合适的版本，拷贝下载链接并进行安装：&lt;/li&gt;
@@ -423,97 +509,4 @@ yum -y &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; zlib-de
 // 写入
 &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; * * root /home/nginx/shell/rotate-logs.sh
 // 重启服务
-/sbin/service crond reload&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[New Beginnings]]></title><description><![CDATA[Far far away, behind the word mountains, far from the countries Vokalia and
-Consonantia, there live the blind texts. Separated they live in…]]></description><link>http://luckqin.cn/new-brginnings/</link><guid isPermaLink="false">http://luckqin.cn/new-brginnings/</guid><pubDate>Fri, 11 Dec 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Far far away, behind the word mountains, far from the countries Vokalia and
-Consonantia, there live the blind texts. Separated they live in Bookmarksgrove
-right at the coast of the Semantics, a large language ocean. A small river named
-Duden flows by their place and supplies it with the necessary regelialia.&lt;/p&gt;
-&lt;h2&gt;On deer horse aboard tritely yikes and much&lt;/h2&gt;
-&lt;p&gt;The Big Oxmox advised her not to do so, because there were thousands of bad
-Commas, wild Question Marks and devious Semikoli, but the Little Blind Text
-didn’t listen. She packed her seven versalia, put her initial into the belt and
-made herself on the way.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;This however showed weasel&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Well uncritical so misled&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;this is very interesting&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Goodness much until that fluid owl&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;When she reached the first hills of the &lt;strong&gt;Italic Mountains&lt;/strong&gt;, she had a last
-view back on the skyline of her hometown &lt;em&gt;Bookmarksgrove&lt;/em&gt;, the headline of
-&lt;a href=&quot;http://google.com&quot;&gt;Alphabet Village&lt;/a&gt; and the subline of her own road, the Line
-Lane. Pityful a rhetoric question ran over her cheek, then she continued her
-way. On her way she met a copy.&lt;/p&gt;
-&lt;h3&gt;Overlaid the jeepers uselessly much excluding&lt;/h3&gt;
-&lt;p&gt;But nothing the copy said could convince her and so it didn’t take long until a
-few insidious Copy Writers ambushed her, made her drunk with
-&lt;a href=&quot;http://google.com&quot;&gt;Longe and Parole&lt;/a&gt; and dragged her into their agency, where
-they abused her for their projects again and again. And if she hasn’t been
-rewritten, then they are still using her.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Far far away, behind the word mountains, far from the countries Vokalia and
-Consonantia, there live the blind texts. Separated they live in Bookmarksgrove
-right at the coast of the Semantics, a large language ocean.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;It is a paradisematic country, in which roasted parts of sentences fly into your
-mouth. Even the all-powerful Pointing has no control about the blind texts it is
-an almost unorthographic life One day however a small line of blind text by the
-name of Lorem Ipsum decided to leave for the far World of Grammar.&lt;/p&gt;
-&lt;h3&gt;According a funnily until pre-set or arrogant well cheerful&lt;/h3&gt;
-&lt;p&gt;The Big Oxmox advised her not to do so, because there were thousands of bad
-Commas, wild Question Marks and devious Semikoli, but the Little Blind Text
-didn’t listen. She packed her seven versalia, put her initial into the belt and
-made herself on the way.&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;So baboon this&lt;/li&gt;
-&lt;li&gt;Mounted militant weasel gregariously admonishingly straightly hey&lt;/li&gt;
-&lt;li&gt;Dear foresaw hungry and much some overhung&lt;/li&gt;
-&lt;li&gt;Rash opossum less because less some amid besides yikes jeepers frenetic
-impassive fruitlessly shut&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;When she reached the first hills of the Italic Mountains, she had a last view
-back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet
-Village and the subline of her own road, the Line Lane. Pityful a rhetoric
-question ran over her cheek, then she continued her way. On her way she met a
-copy.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;The copy warned the Little Blind Text, that where it came from it would have
-been rewritten a thousand times and everything that was left from its origin
-would be the word “and” and the Little Blind Text should turn around and
-return to its own, safe country.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;But nothing the copy said could convince her and so it didn’t take long until a
-few insidious Copy Writers ambushed her, made her drunk with Longe and Parole
-and dragged her into their agency, where they abused her for their projects
-again and again. And if she hasn’t been rewritten, then they are still using
-her. Far far away, behind the word mountains, far from the countries Vokalia and
-Consonantia, there live the blind texts.&lt;/p&gt;
-&lt;h4&gt;Silent delightfully including because before one up barring chameleon&lt;/h4&gt;
-&lt;p&gt;Separated they live in Bookmarksgrove right at the coast of the Semantics, a
-large language ocean. A small river named Duden flows by their place and
-supplies it with the necessary regelialia. It is a paradisematic country, in
-which roasted parts of sentences fly into your mouth.&lt;/p&gt;
-&lt;p&gt;Even the all-powerful Pointing has no control about the blind texts it is an
-almost unorthographic life One day however a small line of blind text by the
-name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox
-advised her not to do so, because there were thousands of bad Commas, wild
-Question Marks and devious Semikoli, but the Little Blind Text didn’t listen.&lt;/p&gt;
-&lt;h5&gt;Wherever far wow thus a squirrel raccoon jeez jaguar this from along&lt;/h5&gt;
-&lt;p&gt;She packed her seven versalia, put her initial into the belt and made herself on
-the way. When she reached the first hills of the Italic Mountains, she had a
-last view back on the skyline of her hometown Bookmarksgrove, the headline of
-Alphabet Village and the subline of her own road, the Line Lane. Pityful a
-rhetoric question ran over her cheek, then she continued her way. On her way she
-met a copy.&lt;/p&gt;
-&lt;h6&gt;Slapped cozy a that lightheartedly and far&lt;/h6&gt;
-&lt;p&gt;The copy warned the Little Blind Text, that where it came from it would have
-been rewritten a thousand times and everything that was left from its origin
-would be the word “and” and the Little Blind Text should turn around and return
-to its own, safe country. But nothing the copy said could convince her and so it
-didn’t take long until a few insidious Copy Writers ambushed her, made her drunk
-with Longe and Parole and dragged her into their agency, where they abused her
-for their projects again and again.&lt;/p&gt;</content:encoded></item></channel></rss>
+/sbin/service crond reload&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item></channel></rss>
