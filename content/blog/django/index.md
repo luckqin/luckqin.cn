@@ -143,6 +143,17 @@ ALLOWED_HOSTS = ['*']
 
 
 '''
+Rest Framework
+'''
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+
+
+'''
 Application definition
 '''
 INSTALLED_APPS = [
@@ -152,11 +163,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -364,7 +377,7 @@ cd django_demo
 
 ```shell
 python3.9 -m pip install -r requirements.txt
-python3.9 -m pip install uvicorn circus
+python3.9 -m pip install uvicorn circus Pillow
 ```
 
 #### 配置 Nginx
